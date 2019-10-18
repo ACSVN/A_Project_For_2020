@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><tprproject>
+<date>09-10-19 09:29</date>
+<uid>p16dae5997a2</uid>
+<ver>1</ver>
+<paths>
+<reports>reports</reports>
+<templates>templates</templates>
+<schedules>schedules</schedules>
+<stype1>tpr</stype1>
+<stype2>src</stype2>
+<sotype2>classes</sotype2>
+</paths>
+<tver>5.0.5-20190816.1</tver>
+<lastmod>18-10-19 14:54</lastmod>
+<editors>tpr\special_page.tpr;tpr\read_input.tpr;tpr\chrome.tpr;tpr\save_page.tpr;tpr\click_image.tpr;tpr\login_page.tpr;tpr\main.tpr</editors>
+</tprproject>

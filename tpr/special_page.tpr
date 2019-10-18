@@ -1,0 +1,97 @@
+# Procedure definition.
+# Expected parameters are:
+# {1} ... String which you want to paste
+Procedure special_page_paste {
+
+    Var _SERVER_CLIPBOARD_CONTENT={1}
+    Press "Ctrl+V"
+    Wait "5s"
+
+}
+
+
+#Procedure definition.
+Procedure special_page_newswitch {
+
+    Wait "10s"
+    Compareto "{web_name}\login\login.png" passrate="70" method="search2"
+    if ({_EXIT_CODE} > 0) {
+        Var flag=1
+    } else {
+        Click "image" passrate="50" template="newswitch\login\login.png"
+
+        Wait "10s"
+        Compareto "{web_name}\login\user.png" passrate="70" method="search2"
+        if ({_EXIT_CODE} > 0) {
+            Var flag=1
+        } else {
+            Click "image" passrate="50" template="{web_name}\login\user.png"
+
+            special_page_paste "quoc.nguyen@addix.vn"
+
+            Press "Tab"
+            special_page_paste "addix12"
+            Press "Enter"
+
+            Wait "10s"
+            Compareto "{web_name}\login\user.png" passrate="70" method="search2"
+            if ({_EXIT_CODE} > 0) {
+                Var flag=1
+            } else {
+                Click "image" passrate="50" template="{web_name}\login\home.png"
+            }
+        }
+    }
+}
+
+
+Procedure special_page_gigagine {
+
+    # ===== gigagine search ===== #
+    for (i=1; {i}<=10; i={i}+1) {
+        Wait "5s"
+        Compareto "gigazine\home" passrate="70" method="search2"
+        if ({_EXIT_CODE} == 0) {
+            Click "image" passrate="50" template="gigazine\home"
+            break
+        }
+    }
+
+    for (i=1; {i}<=10; i={i}+1) {
+
+    }
+
+
+  # ===== roboteer flag ===== #
+  Var flagimg1=0
+
+  # ===== if gigazine image found (flaging=0) ===== #
+  if ({flagimg} < 1) {
+      for (i=1; {i}<{total_keyword}; i={i}+1) {
+          Var _SERVER_CLIPBOARD_CONTENT={url_web}
+          Press F6
+          Press "Ctrl+T"
+          Press "Ctrl+V"
+          Wait "1s"
+
+          Press "Delete"
+          Press Enter
+          Wait "10s"
+      }
+  }
+}
+
+Procedure special_page_PGDOWN {
+
+    for (i=1; {i}<11; i={i}+1) {
+        Compareto "{web_name}\{web_name}{j}.png" method="search2"
+        if ({_EXIT_CODE} > 0) {
+            Press "PGDOWN" wait="500"
+        } else {
+            Click "image" passrate="50" template="{web_name}\{web_name}{j}.png" wait="500"
+            Wait "5s"
+            Break
+        }
+    }
+
+}

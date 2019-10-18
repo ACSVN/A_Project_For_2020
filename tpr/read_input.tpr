@@ -1,0 +1,36 @@
+# Procedure definition.
+# If you use this function, should be opened formerly in main source code.
+# Expected parameters are:
+# {1} ... Row number to read in the sheet named "URL" of "input.xlsx"
+Procedure read_input_url {
+
+    Excel select row={1} column="1" sheet="URL" id="input"
+    Var web_name={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="2" sheet="URL" id="input"
+    Var run_switch={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="3" sheet="URL" id="input"
+    Var program_switch={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="4" sheet="URL" id="input"
+    Var save_switch={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="5" sheet="URL" id="input"
+    Var page_num={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="6" sheet="URL" id="input"
+    Var URL={_EXCEL_CELL_VALUE}
+
+}
+
+
+# Procedure definition.
+# Expected parameters are:
+# {1} ... Row number to read in the sheet named "keyword" of "input.xlsx"
+Procedure read_input_keyword {
+
+    Excel select sheet="keyword" row={1} column="1" id="input"
+    Var keyword_name={_EXCEL_CELL_VALUE}
+
+}

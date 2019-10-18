@@ -1,0 +1,15 @@
+# Procedure definition.
+# Expected parameters are:
+# {1} ... image name (in "templete" folder) which you want to click
+Procedure click_image {
+
+    Compareto {1} passrate="70" method="search2"
+
+    if ({_EXIT_CODE} > 0) {
+        # 今のところ何もしない状態
+    } else {
+        # image found
+        Click "image" passrate="50" template={1}
+    }
+
+}

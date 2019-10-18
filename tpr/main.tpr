@@ -1,0 +1,87 @@
+Include "chrome.tpr"
+Include "read_input.tpr"
+Include "special_page.tpr"
+Include "click_image.tpr"
+Include "save_page.tpr"
+
+
+# variable in "read_input_url(read_input.tpr)"
+Var web_name=""
+Var run_switch=1
+Var program_switch=1
+Var save_switch=1
+Var page_num=1
+Var URL=""
+
+# variable in "read_input_keyword(read_input.tpr)"
+Var keyword_name=""
+
+
+
+# ========== Creating Excel File ========== #
+
+Excel "open" file="..\input.xlsx" id="input"
+
+# Each website
+for (i=2; {i}<=25, i={i}+1) {
+    read_input_url "{i}"
+
+    # URL_switch=1 -> search on Google
+    if ({run_switch}=1) {
+        chrome_open
+        
+        if ({web_name}=="newswitch") {
+            chrome_search
+            special_page_newswitch
+        }
+
+        # Each keyword
+        for (j=1; {j}<=18, j={j}+1) {
+            read_input_keyword "{j}"
+            chrome_search
+            # (サイトの保存についてはまだコード解析が進んでいないので詳細は書いていません)
+
+            # Special website (which cannot get 20 items only by inputting URL)
+            if ({web_name}=="gigagine") {
+                click_image #次ページに飛ぶための何かが必要
+            } else if ({web_name}=="newswitch") {
+                #special_page_newswitch
+            } else if ({web_name}=="ascii") {
+                click_image
+                #Googleカスタム検索のためクリックが必要
+            } else if ({web_name}=="engadget") {
+                click_image #もっと読むを1回クリック
+            } else if ({web_name}=="japancnet") {
+                click_image #日付順に要変更(ページ遷移はOK)
+            } else if ({web_name}=="monoist") {
+                click_image #Googleカスタム検索のためクリックが必要
+            } else if ({web_name}=="response") {
+                click_image #Googleカスタム検索のためクリックが必要
+            } else if ({web_name}=="techcrunch") {
+                click_image #新着順に要変更
+            } else if ({web_name}=="wired") {
+                click_image #Googleカスタム検索のためクリックが必要
+            }
+        }
+
+        chrome_close
+        Log "Searching Finished (web_name={web_name})"
+    } else {
+        Log "Searching Skipped (run_switch=0, web_name={web_name})"
+    }
+}
+
+Excel "close"
+
+
+# ========== Saving Pagesource ========== #
+
+for (i=2, {i}<=25, i={i}+1) {
+    # ウェブサイトごとのページソース処理を行うために再度inputファイルを読み込んでおく
+    read_input_url "{i}"
+
+    # Ctrl+Sが適用されるものだけ先に済ませておく
+    if ({save_switch}=1) {
+        save_page_Ctrl+S
+    }
+}

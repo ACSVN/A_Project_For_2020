@@ -1,0 +1,45 @@
+# Procedure definition.
+# Expected parameters are:
+# {1} ... String which you want to paste
+Procedure login_page_paste {
+
+    Var _SERVER_CLIPBOARD_CONTENT={1}
+    Press "Ctrl+V"
+    Wait "5s"
+
+}
+
+
+#Procedure definition.
+Procedure login_page_newswitch {
+    Compareto "{web_name}\login\login.png" passrate="70" method="search2"
+
+    if ({_EXIT_CODE} > 0) {
+        Var flag=1
+    } else {
+        Click "image" passrate="50" template="{web_name}\login\login.png"
+        Wait "10s"
+        Compareto "{web_name}\login\user.png" passrate="70" method="search2"
+
+        if ({_EXIT_CODE} > 0) {
+            Var flag=1
+        } else {
+            Click "image" passrate="50" template="{web_name}\login\user.png"
+            login_page_paste "quoc.nguyen@addix.vn"
+
+            Press "Tab"
+            login_page_paste "addix12"
+
+            Press "Enter"
+            Wait "10s"
+
+            Compareto "{web_name}\login\user.png" passrate="70" method="search2"
+
+            if ({_EXIT_CODE} > 0) {
+                Var flag=1
+            } else {
+                Click "image" passrate="50" template="{web_name}\login\home.png"
+            }
+        }
+    }
+}
