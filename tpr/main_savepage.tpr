@@ -1,0 +1,82 @@
+Include "func\save.tpr"
+Include "func\image.tpr"
+
+# Procedure definition.
+Procedure main_savepage {
+
+    if ({save_switch} == 1) {
+        # Excel "open" file="..\href.xlsx" id="id2"
+        # Excel "select" sheet="Sheet1" id="id2"
+
+        Var result_status=0
+
+        for (k=2; {k}<{count_loop}+2; k={k}+1) {
+            # Read url item
+            # Excel select row={k} column="1" id="id2"
+            Var str_url_item_tmp={_EXCEL_CELL_VALUE}
+
+            # Read title item
+            # Excel select row={k} column="2" id="id2"
+            Var str_title_item={_EXCEL_CELL_VALUE}
+            Var path_save_html=""
+
+            if ({run_switch} <= 1) {
+                # Run "..\src\ana\GetPathSaveHTML.java"
+            } else {
+                # Run "..\src\JP\GetPathHTML.java"
+            }
+
+            Eval no_num={k}-1
+
+            String "indexof" {str_url_item_tmp} string="null" var="result"
+            String "indexof" {str_url_item_tmp} string="_EXCEL_CELL_VALUE" var="result2"
+
+            if ({result} < 0 && {result2} < 0) {
+                Var _SERVER_CLIPBOARD_CONTENT={str_url_item_tmp}
+                Press "F6"
+                Press "Ctrl+T"
+                Press "Ctrl+V"
+                Wait "2s"
+                Press "Delete"
+                Press "Enter"
+                Wait "3s"
+
+                save_Ctrl+S "{path_save}\{keyword}\({no_num}){page_name}"
+                image_check "completed.png"
+
+                Press "Ctrl+W"
+                Var result_status=1
+            }
+
+            if({run_switch} <= 1){
+                # Run "..\src\ana\GetContent.java"
+            } else {
+                # Run "..\src\JP\GetContent.java"
+            }
+
+            # Excel "close" save="false" id="id2"
+
+            Press "Ctrl+W"
+
+            if ({result_status} < 1) {
+                Var status="Data storage exist data"
+            } else {
+                Var status="Success"
+            }
+
+            Var keyword={keyword{i}}
+            Var total_href={total_href}
+
+
+            if ({run_switch} <= 1) {
+                # Run "..\src\ana\SaveWebError.java"
+            } else {
+                # Run "..\src\JP\SaveWebError.java"
+            }
+        }
+
+
+        } else if ({save_switch} == 2) {
+            save_HTTrack
+        }
+}

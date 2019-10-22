@@ -1,0 +1,35 @@
+Include "func\chrome.tpr"
+Include "func\login.tpr"
+Include "func\image.tpr"
+Include "func\input.tpr"
+
+Include "main_ANA1.tpr"
+Include "main_ANA2.tpr"
+
+Procedure main_openpage {
+    
+        # website that should be login
+        if ({web_name} == "newswitch" || {web_name} == "nikkan") {
+            login_page "{web_name}"
+        }
+        
+        # Each keyword
+        for (key_cnt=1; {key_cnt}<=18, key_cnt={key_cnt}+1) {
+            input_keyword "{key_cnt}"
+            chrome_search "{URL}" "{keyword_name}"
+            # (サイトの保存についてはまだコード解析が進んでいないので詳細は書いていません)
+
+
+        }
+        
+        # if website needs to sort
+        if ({web_name}="") {
+            image_sort "{web_name}"
+        }
+        
+        if ({run_switch} == 1) {
+            main_ANA1
+        } else if ({run_switch} == 2) {
+            main_ANA2
+        }
+}

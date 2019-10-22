@@ -2,16 +2,13 @@
 # If you want to use this procedure, Chrome should be opened formerly in main script.
 # Expected parameters are:
 # {1} ... fullPath name to save page source (html file)
-Procedure save_page_Ctrl+S {
+Procedure save_Ctrl+S {
 
     Press "Ctrl+S"
     Wait "2s"
 
     Press "Ctrl+Right"
     Press "Ctrl+A"
-    Press "Ctrl+C"
-
-    Var page_name={_SERVER_CLIPBOARD_CONTENT_TEXT}
     Press "Delete"
 
     Var _SERVER_CLIPBOARD_CONTENT={1}
@@ -19,12 +16,12 @@ Procedure save_page_Ctrl+S {
     Wait "2s"
 
     Press "Enter"
-    Wait "10s"
+    Wait "20s"
 }
 
 
 # Procedure definition.
-Procedure save_page_HTTrack {
+Procedure save_HTTrack {
     Press "Windows+R"
     Paste "C:\Program Files (x86)\WinHTTrack\WinHTTrack.exe"
     Press "Enter"

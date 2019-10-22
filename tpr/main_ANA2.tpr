@@ -1,19 +1,19 @@
-Include "click_image.tpr"
-Include "save_page.tpr"
+Include "func\image.tpr"
+Include "func\save.tpr"
 
 # Procedure definition.
 # If you use this function, should be opened formerly in main source code.
 # Expected parameters are:
 #
-Procedure mainANA2 {
+Procedure main_ANA2 {
 
     Var file_html="temp1.html"
     Run "..\src\DeleteFileExist.java"
     Wait "5s"
 
-    save_page_Ctrl+S "{fullPathHtml}"
+    save_Ctrl+S "{fullPathHtml}"
 
-    click_image "completed.png"
+    image_click "completed.png"
 
     Run "..\src\GetNumberPage.java"
 
@@ -52,9 +52,9 @@ Procedure mainANA2 {
                 Var file_html="temp{k}.html"
                 Run "..\src\GetPathHTML.java"
 
-                save_page_Ctrl+S "{fullPathHtml}"
+                save_Ctrl+S "{fullPathHtml}"
 
-                click_image "completed.png"
+                image_click "completed.png"
             }
         }
     }

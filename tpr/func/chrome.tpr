@@ -13,9 +13,11 @@ Procedure chrome_open {
 
 # Procedure definition.
 # If you use this function, Chrome should be opened formerly on main source code.
+# {1} ... String URL which needs to be replaced
+# {2} ... String keyword which wants to replace
 Procedure chrome_search {
 
-    String replace {URL} string="(keyword)" replacement={keyword_name}
+    String replace {1} string="(keyword)" replacement={2}
     Var _SERVER_CLIPBOARD_CONTENT={_STRING}
 
     Press "F6"

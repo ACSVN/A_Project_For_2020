@@ -1,9 +1,9 @@
-Include "click_image.tpr"
+Include "image.tpr"
 
 # Procedure definition.
 # Expected parameters are:
 # {1} ... String which you want to paste
-Procedure login_page_paste {
+Procedure login_paste {
 
     Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V"
@@ -17,19 +17,21 @@ Procedure login_page_paste {
 # {1} ... website name which use login
 Procedure login_page {
 
-    click_image "{1}\login\login.png" "{1}\login\login.png"
+    image_click "{1}\login\login.png"
     Wait "10s"
 
-    click_image "{1}\login\user.png" "{1}\login\user.png"
+    image_click "{1}\login\user.png"
     Wait "10s"
 
-    login_page_paste "quoc.nguyen@addix.vn"
+    login_paste "quoc.nguyen@addix.vn"
 
     Press "Tab"
-    login_page_paste "addix12"
 
+    login_paste "addix12"
     Press "Enter"
     Wait "10s"
-
-    click_image "{1}\login\user.png" "{1}\login\home.png"
+    
+    if ({web_name} == "newswitch") {
+        image_click "{1}\login\home.png"
+    }
 }

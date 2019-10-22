@@ -10,39 +10,6 @@ Procedure special_page_paste {
 }
 
 
-#Procedure definition.
-Procedure special_page_newswitch {
-
-    Wait "10s"
-    Compareto "{web_name}\login\login.png" passrate="70" method="search2"
-    if ({_EXIT_CODE} > 0) {
-        Var flag=1
-    } else {
-        Click "image" passrate="50" template="newswitch\login\login.png"
-
-        Wait "10s"
-        Compareto "{web_name}\login\user.png" passrate="70" method="search2"
-        if ({_EXIT_CODE} > 0) {
-            Var flag=1
-        } else {
-            Click "image" passrate="50" template="{web_name}\login\user.png"
-
-            special_page_paste "quoc.nguyen@addix.vn"
-
-            Press "Tab"
-            special_page_paste "addix12"
-            Press "Enter"
-
-            Wait "10s"
-            Compareto "{web_name}\login\user.png" passrate="70" method="search2"
-            if ({_EXIT_CODE} > 0) {
-                Var flag=1
-            } else {
-                Click "image" passrate="50" template="{web_name}\login\home.png"
-            }
-        }
-    }
-}
 
 
 Procedure special_page_gigagine {
@@ -81,17 +48,3 @@ Procedure special_page_gigagine {
   }
 }
 
-Procedure special_page_PGDOWN {
-
-    for (i=1; {i}<11; i={i}+1) {
-        Compareto "{web_name}\{web_name}{j}.png" method="search2"
-        if ({_EXIT_CODE} > 0) {
-            Press "PGDOWN" wait="500"
-        } else {
-            Click "image" passrate="50" template="{web_name}\{web_name}{j}.png" wait="500"
-            Wait "5s"
-            Break
-        }
-    }
-
-}
