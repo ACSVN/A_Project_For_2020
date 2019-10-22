@@ -1,3 +1,5 @@
+Include "click_image.tpr"
+
 # Procedure definition.
 # Expected parameters are:
 # {1} ... String which you want to paste
@@ -10,36 +12,24 @@ Procedure login_page_paste {
 }
 
 
-#Procedure definition.
-Procedure login_page_newswitch {
-    Compareto "{web_name}\login\login.png" passrate="70" method="search2"
+# Procedure definition.
+# Expected Patrameters are:
+# {1} ... website name which use login
+Procedure login_page {
 
-    if ({_EXIT_CODE} > 0) {
-        Var flag=1
-    } else {
-        Click "image" passrate="50" template="{web_name}\login\login.png"
-        Wait "10s"
-        Compareto "{web_name}\login\user.png" passrate="70" method="search2"
+    click_image "{1}\login\login.png" "{1}\login\login.png"
+    Wait "10s"
 
-        if ({_EXIT_CODE} > 0) {
-            Var flag=1
-        } else {
-            Click "image" passrate="50" template="{web_name}\login\user.png"
-            login_page_paste "quoc.nguyen@addix.vn"
+    click_image "{1}\login\user.png" "{1}\login\user.png"
+    Wait "10s"
 
-            Press "Tab"
-            login_page_paste "addix12"
+    login_page_paste "quoc.nguyen@addix.vn"
 
-            Press "Enter"
-            Wait "10s"
+    Press "Tab"
+    login_page_paste "addix12"
 
-            Compareto "{web_name}\login\user.png" passrate="70" method="search2"
+    Press "Enter"
+    Wait "10s"
 
-            if ({_EXIT_CODE} > 0) {
-                Var flag=1
-            } else {
-                Click "image" passrate="50" template="{web_name}\login\home.png"
-            }
-        }
-    }
+    click_image "{1}\login\user.png" "{1}\login\home.png"
 }

@@ -1,9 +1,12 @@
 # Procedure definition.
 # If you want to use this procedure, Chrome should be opened formerly in main script.
+# Expected parameters are:
+# {1} ... fullPath name to save page source (html file)
 Procedure save_page_Ctrl+S {
 
     Press "Ctrl+S"
     Wait "2s"
+
     Press "Ctrl+Right"
     Press "Ctrl+A"
     Press "Ctrl+C"
@@ -11,12 +14,12 @@ Procedure save_page_Ctrl+S {
     Var page_name={_SERVER_CLIPBOARD_CONTENT_TEXT}
     Press "Delete"
 
-    Var _SERVER_CLIPBOARD_CONTENT="{fullPathHtml}"
+    Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V"
     Wait "2s"
+
     Press "Enter"
     Wait "10s"
-
 }
 
 
@@ -29,13 +32,12 @@ Procedure save_page_HTTrack {
 
     Press "Alt+N"
     Paste {web_name}
-    Press "Tab"
-    Press "Tab"
+    Press "Tab" count=2
     Paste {_PROJECT_DIR}\data_page_source\HTML\{web_name}
     Press "Enter"
 
     for (get=2; {get}<{count_loop}+2; get={get}+1) {
-        Excel select row={get} column="1" id="id4"
+        #Excel select row={get} column="1" id="id4"
         Var urlhttr={_EXCEL_CELL_VALUE}
 
         String "indexof" {urlhttr} string="null" var="texturl"
@@ -54,8 +56,7 @@ Procedure save_page_HTTrack {
     }
 
     Press "Tab" count=7
-    Press "Enter"
-    Press "Enter"
+    Press "Enter" count=2
     Press "Alt+Tab"
     Wait 3s
 }

@@ -1,0 +1,8 @@
+Procedure mainANA1 {
+
+    Press F6
+    Press "Ctrl+C"
+    Var url={_SERVER_CLIPBOARD_CONTENT_TEXT}
+    
+    Run "..\src\GetHref.java"
+}

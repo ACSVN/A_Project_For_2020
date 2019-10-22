@@ -1,12 +1,11 @@
 # Procedure definition.
 Procedure chrome_open {
 
-     Press "Windows"
+     Press "Windows+R"
      Paste "Chrome"
-     Wait 1s
-
      Press "Enter"
-     Wait 1s
+     Wait 3s
+
      Press "Windows+Up"
      Wait 1s
 }
