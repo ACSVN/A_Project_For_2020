@@ -4,7 +4,7 @@ Include "func\image.tpr"
 # Procedure definition.
 Procedure main_savepage {
 
-    if ({save_switch} == 1) {
+    if ({save_method} == 1) {
         # Excel "open" file="..\href.xlsx" id="id2"
         # Excel "select" sheet="Sheet1" id="id2"
 
@@ -76,7 +76,7 @@ Procedure main_savepage {
         }
 
 
-        } else if ({save_switch} == 2) {
+        } else if ({save_method} == 2) {
             save_HTTrack
         }
 }

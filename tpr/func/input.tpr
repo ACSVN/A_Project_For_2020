@@ -1,3 +1,7 @@
+# This source code was created by Akira Nose.
+# Created on October 23, 2019
+
+
 # Procedure definition.
 # If you use this function, should be opened formerly in main source code.
 # Expected parameters are:
@@ -8,17 +12,22 @@ Procedure input_url {
     Var web_name={_EXCEL_CELL_VALUE}
 
     Excel select row={1} column="2" sheet="URL" id="input"
-    Var run_switch={_EXCEL_CELL_VALUE}
+    Var crawl_switch={_EXCEL_CELL_VALUE}
 
     Excel select row={1} column="3" sheet="URL" id="input"
     Var save_switch={_EXCEL_CELL_VALUE}
 
     Excel select row={1} column="4" sheet="URL" id="input"
-    Var page_num={_EXCEL_CELL_VALUE}
+    Var crawl_method={_EXCEL_CELL_VALUE}
 
     Excel select row={1} column="5" sheet="URL" id="input"
+    Var save_method={_EXCEL_CELL_VALUE}
+    
+    Excel select row={1} column="6" sheet="URL" id="input"
+    Var page_num={_EXCEL_CELL_VALUE}
+    
+    Excel select row={1} column="7" sheet="URL" id="input"
     Var URL={_EXCEL_CELL_VALUE}
-
 }
 
 

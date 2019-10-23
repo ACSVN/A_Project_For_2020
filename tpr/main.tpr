@@ -1,53 +1,56 @@
-Include "func\chrome.tpr"
+# This source code was created by Akira Nose.
+# Created on October 23, 2019
+
+
+Include "main_webcrawl.tpr"
+Include "main_savepage.tpr"
 Include "func\input.tpr"
 
-Include "main_openpage.tpr"
-Include "main_savepage.tpr"
 
-
-# variable in "read_input_url(read_input.tpr)"
+# Global Variable in "input_url(read_input.tpr)"
 Var web_name=""
-Var run_switch=0
+Var crawl_switch=0
 Var save_switch=0
 Var login_page=0
 Var page_num=1
 Var URL=""
 
-# variable in "read_input_keyword(read_input.tpr)"
+# Global Variable in "input_keyword(read_input.tpr)"
 Var keyword_name=""
 
+
+Excel "open" file="..\input.xlsx" id="input"
 
 
 # ========== Creating Excel File ========== #
 
-Excel "open" file="..\input.xlsx" id="input"
-
-# Each website
+# Check whether each website should save Excel file or not
 for (web_cnt=2; {web_cnt}<=25, web_cnt={web_cnt}+1) {
     input_url "{web_cnt}"
 
-    # URL_switch=1 -> search on Google
-    if ({run_switch} > 0) {
-        chrome_open
-        main_openpage
-        chrome_close
-        Log "Searching Finished (web_name={web_name})"
+    # If crawl_switch > 0, go to "main_openpage.tpr"
+    if ({crawl_switch} > 0) {
+        main_webcrawl
+        Log "Searching On Website Is Finished (web_name={web_name})"
     } else {
-        Log "Searching Skipped (run_switch=0, web_name={web_name})"
+        Log "Searching On Website Is Skipped (crawl_switch=0, web_name={web_name})"
     }
 }
 
 
 # ========== Saving Pagesource ========== #
 
-for (i=2, {i}<=25, i={i}+1) {
-    # ウェブサイトごとのページソース処理を行うために再度inputファイルを読み込んでおく
-    input_url "{i}"
+# Check whether each website should save page source or not
+for (web_cnt=2, {web_cnt}<=25, web_cnt={web_cnt}+1) {
+    input_url "{web_cnt}"
 
-    # if save_switch is bigger than 0, go to "main_savepage.tpr"
-    if ({save_switch} < 0) {
-        main_savepage
-    }
+    # if save_switch > 0, go to "main_savepage.tpr"
+    if ({save_switch} > 0) {
+        #main_savepage
+        Log "Saving Page Source Is Finished (web_name={web_name})"
+    } else {
+        Log "Saving Page Source Is Skipped (save_switch=0, web_name={web_name})"
+   }
 }
 
 Excel "close"

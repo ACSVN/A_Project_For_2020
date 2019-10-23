@@ -1,14 +1,17 @@
+# This source code was created by Akira Nose.
+# Created on October 23, 2019
+
+
 Include "image.tpr"
 
 # Procedure definition.
 # Expected parameters are:
 # {1} ... String which you want to paste
 Procedure login_paste {
-
+    
     Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V"
     Wait "5s"
-
 }
 
 
@@ -19,19 +22,15 @@ Procedure login_page {
 
     image_click "{1}\login\login.png"
     Wait "10s"
-
     image_click "{1}\login\user.png"
     Wait "10s"
-
     login_paste "quoc.nguyen@addix.vn"
-
     Press "Tab"
-
     login_paste "addix12"
     Press "Enter"
     Wait "10s"
     
-    if ({web_name} == "newswitch") {
+    if ({web_name} matches "newswitch") {
         image_click "{1}\login\home.png"
     }
 }

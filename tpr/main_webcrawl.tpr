@@ -1,0 +1,55 @@
+# This source code was created by Akira Nose.
+# Created on October 23, 2019
+
+
+Include "func\chrome.tpr"
+Include "func\login.tpr"
+Include "func\image.tpr"
+Include "func\input.tpr"
+
+Include "main_ANA1.tpr"
+Include "main_ANA2.tpr"
+Include "special_page.tpr"
+
+# Procedure definition.
+Procedure main_webcrawl {
+
+    # Open Chrome
+    chrome_open
+
+    # Website that should be login
+    # if ({web_name} matches "newswitch" || {web_name} matches "nikkan") {
+    #     chrome_opentab "{URL}" ""
+    #     login_page "{web_name}"
+    #     chrome_closetab
+    # }
+
+    # Each keyword
+    for (key_cnt=1; {key_cnt}<=18, key_cnt={key_cnt}+1) {
+        input_keyword "{key_cnt}"
+
+        if ({web_name} matches "gigazine") {
+            special_page_gigazine "{keyword_name}"
+        }
+
+        # Search keyword by using "URL" include "keyword_name"
+        chrome_search "{URL}" "{keyword_name}"
+
+        # if website needs to sort
+        # if ({web_name} matches "") {
+        #     image_sort "{web_name}"
+        # }
+
+        if ({crawl_method} == 1) {
+            # main_ANA1
+            Log "ANA1"
+        } else if ({crawl_method} == 2) {
+            # main_ANA2
+            Log "ANA2"
+        }
+        chrome_closetab
+    }
+
+    # Close Chrome
+    chrome_close
+}

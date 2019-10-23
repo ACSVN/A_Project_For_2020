@@ -1,50 +1,46 @@
+# This source code was created by Akira Nose.
+# Created on October 23, 2019
+
+
 # Procedure definition.
 # Expected parameters are:
-# {1} ... String which you want to paste
-Procedure special_page_paste {
-
-    Var _SERVER_CLIPBOARD_CONTENT={1}
-    Press "Ctrl+V"
-    Wait "5s"
-
-}
-
-
-
-
-Procedure special_page_gigagine {
-
-    # ===== gigagine search ===== #
-    for (i=1; {i}<=10; i={i}+1) {
-        Wait "5s"
-        Compareto "gigazine\home" passrate="70" method="search2"
-        if ({_EXIT_CODE} == 0) {
-            Click "image" passrate="50" template="gigazine\home"
-            break
-        }
+# {1} ... keyword_name
+Procedure special_page_gigazine {
+    if ({1} matches "AI") {
+        #Var keyword_name="d98f661311f948da43ef5aa11a78a304"
+    } else if ({1} matches "IoT") {
+        Var keyword_name="74e7a1e1fc7212a59e274dc96236ac9f"
+    } else if ({1} matches "ハプティクス") {
+        Var keyword_name="43031d8da90bc054368d7116f11f70e2"
+    } else if ({1} matches "ロボティクス") {
+        Var keyword_name="4ea913b24cef500b30d5a5cbc541c288"
+    } else if ({1} matches "ロボット") {
+        Var keyword_name="09d689d07a653ac912cf243a910c8c05"
+    } else if ({1} matches "触覚") {
+        Var keyword_name="35c217680ccc93effbdcacd91422a048"
+    } else if ({1} matches "遠隔操作") {
+        Var keyword_name="eb0c32403a6dd7dec0de0df8dd513424"
+    } else if ({1} matches "遠隔会議") {
+        Var keyword_name="3dd643d9b97efd48b6b3c8403164e1ba"
+    } else if ({1} matches "遠隔医療") {
+        Var keyword_name="10f97968976580d3ba29b667f62c54ca"
+    } else if ({1} matches "宇宙") {
+        Var keyword_name="1fe7404fc50b92d23106ea99cf90ea31"
+    } else if ({1} matches "医療") {
+        Var keyword_name="043c8bdd1a038a863d58af3286eabed9"
+    } else if ({1} matches "MR") {
+        #Var keyword_name="74e7a1e1fc7212a59e274dc96236ac9f"
+    } else if ({1} matches "VR") {
+        #Var keyword_name="74e7a1e1fc7212a59e274dc96236ac9f"
+    } else if ({1} matches "デジタルサイネージ") {
+        Var keyword_name="69f5c4ea450891fbc780d7aaa977c346"
+    } else if ({1} matches "建設") {
+        Var keyword_name="54f19ba943b1cfc1b53aef77f520cb56"
+    } else if ({1} matches "ANA AVATAR") {
+        Var keyword_name="2e0defd666adaa83be91e3042b50547e"
+    } else if ({1} matches "シェアリングエコノミー") {
+        Var keyword_name="da5dcd9e75d606e8601711262024e833"
+    } else if ({1} matches "VR広告") {
+        #Var keyword_name="74e7a1e1fc7212a59e274dc96236ac9f"
     }
-
-    for (i=1; {i}<=10; i={i}+1) {
-
-    }
-
-
-  # ===== roboteer flag ===== #
-  Var flagimg1=0
-
-  # ===== if gigazine image found (flaging=0) ===== #
-  if ({flagimg} < 1) {
-      for (i=1; {i}<{total_keyword}; i={i}+1) {
-          Var _SERVER_CLIPBOARD_CONTENT={url_web}
-          Press F6
-          Press "Ctrl+T"
-          Press "Ctrl+V"
-          Wait "1s"
-
-          Press "Delete"
-          Press Enter
-          Wait "10s"
-      }
-  }
 }
-

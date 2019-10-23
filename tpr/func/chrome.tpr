@@ -1,3 +1,7 @@
+# This source code was created by Akira Nose.
+# Created on October 23, 2019
+
+
 # Procedure definition.
 Procedure chrome_open {
 
@@ -17,25 +21,37 @@ Procedure chrome_open {
 # {2} ... String keyword which wants to replace
 Procedure chrome_search {
 
-    String replace {1} string="(keyword)" replacement={2}
-    Var _SERVER_CLIPBOARD_CONTENT={_STRING}
+    # Replace URL for containing keyword
+    if ({1} contains "(keyword)") {
+        String replace {1} string="(keyword)" replacement={2}
+        Var _SERVER_CLIPBOARD_CONTENT={_STRING}
+    } else {
+        Var _SERVER_CLIPBOARD_CONTENT={1}
+    }
 
+    # New Tab
     Press "F6"
     Press "Ctrl+T"
     Press "Ctrl+V"
-    #Wait "1s"
+    Wait "1s"
 
     Press "Delete"
     Press "Enter"
-    Wait "1s"
+    Wait "3s"
+}
+
+
+# Procedure definition.
+# If you use this function, Chrome should be opened formerly on main source code.
+Procedure chrome_closetab {
+     Press "Ctrl+W"
+     Wait 1s
 }
 
 
 # Procedure definition.
 # If you use this function, Chrome should be opened formerly on main source code.
 Procedure chrome_close {
-
      Press "Alt+F4"
      Wait 1s
-
 }
