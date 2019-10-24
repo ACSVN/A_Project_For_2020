@@ -22,12 +22,48 @@ Procedure input_url {
 
     Excel select row={1} column="5" sheet="URL" id="input"
     Var save_method={_EXCEL_CELL_VALUE}
-    
+
     Excel select row={1} column="6" sheet="URL" id="input"
     Var page_num={_EXCEL_CELL_VALUE}
-    
+
     Excel select row={1} column="7" sheet="URL" id="input"
     Var URL={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="8" sheet="URL" id="input"
+    Var class_href={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="9" sheet="URL" id="input"
+    Var class_title={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="10" sheet="URL" id="input"
+    Var class_postdate={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="11" sheet="URL" id="input"
+    Var class_source={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="12" sheet="URL" id="input"
+    Var click_search={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="13" sheet="URL" id="input"
+    Var class_next_page={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="14" sheet="URL" id="input"
+    Var domain={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="15" sheet="URL" id="input"
+    Var replace_nxt_p={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="16" sheet="URL" id="input"
+    Var case_display={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="17" sheet="URL" id="input"
+    Var class_tr_dl={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="18" sheet="URL" id="input"
+    Var click_sort={_EXCEL_CELL_VALUE}
+
+    Excel select row={1} column="19" sheet="URL" id="input"
+    Var class_gsc_cursor_page={_EXCEL_CELL_VALUE}
 }
 
 

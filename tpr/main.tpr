@@ -11,9 +11,22 @@ Include "func\input.tpr"
 Var web_name=""
 Var crawl_switch=0
 Var save_switch=0
-Var login_page=0
-Var page_num=1
+Var crawl_method=0
+Var save_method=0
+Var page_num=0
 Var URL=""
+Var class_href=""
+Var class_title=""
+Var class_postdate=""
+Var class_source=""
+Var click_search=""
+Var class_next_page=""
+Var domain=""
+Var replace_nxt_p=""
+Var case_display=""
+Var class_tr_dl=""
+Var click_sort=""
+Var class_gsc_cursor_page=""
 
 # Global Variable in "input_keyword(read_input.tpr)"
 Var keyword_name=""
