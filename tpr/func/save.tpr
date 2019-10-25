@@ -105,6 +105,6 @@ Procedure save_Ctrl+S {
         }
     }
 
-    Excel "close" save="false" id="{1}_saveHTT"
+    Excel "close" save="false" id="{1}_saveCtrlS"
     chrome_close
 }
