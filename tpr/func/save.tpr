@@ -1,3 +1,6 @@
+# This source code was created by Akira Nose.
+# Created on October 25, 2019
+
 # Procedure definition.
 # If you want to use this procedure, Chrome should be opened formerly in main script.
 # Expected parameters are:
@@ -21,39 +24,37 @@ Procedure save_Ctrl+S {
 
 
 # Procedure definition.
+# Expected Parameters are:
+# {1} ... web_name
 Procedure save_HTTrack {
+
+    # Open HTTrack
     Press "Windows+R"
     Paste "C:\Program Files (x86)\WinHTTrack\WinHTTrack.exe"
     Press "Enter"
-    Wait 3s
+    Wait "3s"
 
+    # Set directory to save HTML file
     Press "Alt+N"
-    Paste {web_name}
+    Paste {1}
     Press "Tab" count=2
-    Paste {_PROJECT_DIR}\data_page_source\HTML\{web_name}
+    Paste {_PROJECT_DIR}\data_page_source\HTML\{1}
     Press "Enter"
+    
+    Excel "open" file="..\data_page_source\HTML\{1}\{1}.xlsx" id="{1}_HTTrack"
 
-    for (get=2; {get}<{count_loop}+2; get={get}+1) {
-        #Excel select row={get} column="1" id="id4"
-        Var urlhttr={_EXCEL_CELL_VALUE}
-
-        String "indexof" {urlhttr} string="null" var="texturl"
-        String "indexof" {urlhttr} string=" " var="texturl2"
-        String "indexof" {urlhttr} string="null" var="result3"
-        String "indexof" {urlhttr} string="_EXCEL_CELL_VALUE" var="result4"
-
-        Log {result3}
-
-        if ({result3} < 0 && {result4} < 0) {
-            if ({texturl} < 0 && {texturl2} < 0) {
-                Paste {urlhttr}
-                Press "Enter"
-            }
-        }
+    # Paste URL to get HTML data (20item * 18keyword = 360item)
+    for (save_cnt=1+1; {save_cnt}<=360+1; save_cnt={save_cnt}+1) {
+        Excel "select" row={save_cnt} column="5" id="{1}_HTTrack"
+        Paste {_EXCEL_CELL_VALUE}
+        Press "Enter"
     }
+    
+    Excel "close" save="false" id="{1}_HTTrack"
 
+    # Run HTTrack
     Press "Tab" count=7
     Press "Enter" count=2
     Press "Alt+Tab"
-    Wait 3s
+    Wait "3s"
 }
