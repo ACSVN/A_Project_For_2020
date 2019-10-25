@@ -1,15 +1,16 @@
 # This source code was created by Akira Nose.
 # Created on October 25, 2019
 
+Include "chrome.tpr"
+
 # Procedure definition.
 # If you want to use this procedure, Chrome should be opened formerly in main script.
 # Expected parameters are:
-# {1} ... fullPath name to save page source (html file)
-Procedure save_Ctrl+S {
+# {1} ... fullPath name to save pagesource (html file)
+Procedure save_chrome {
 
     Press "Ctrl+S"
     Wait "2s"
-
     Press "Ctrl+Right"
     Press "Ctrl+A"
     Press "Delete"
@@ -17,8 +18,8 @@ Procedure save_Ctrl+S {
     Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V"
     Wait "2s"
-
     Press "Enter"
+
     Wait "20s"
 }
 
@@ -27,6 +28,9 @@ Procedure save_Ctrl+S {
 # Expected Parameters are:
 # {1} ... web_name
 Procedure save_HTTrack {
+
+    # Local Variable
+    Var url_for_httrack=""
 
     # Open HTTrack
     Press "Windows+R"
@@ -40,21 +44,67 @@ Procedure save_HTTrack {
     Press "Tab" count=2
     Paste {_PROJECT_DIR}\data_page_source\HTML\{1}
     Press "Enter"
-    
-    Excel "open" file="..\data_page_source\HTML\{1}\{1}.xlsx" id="{1}_HTTrack"
+
+    Excel "open" file="..\data_page_source\HTML\{1}\{1}.xlsx" id="{1}_saveHTT"
 
     # Paste URL to get HTML data (20item * 18keyword = 360item)
-    for (save_cnt=1+1; {save_cnt}<=360+1; save_cnt={save_cnt}+1) {
-        Excel "select" row={save_cnt} column="5" id="{1}_HTTrack"
-        Paste {_EXCEL_CELL_VALUE}
-        Press "Enter"
+    for (save_cnt=2; {save_cnt}<362; save_cnt={save_cnt}+1) {
+        Excel "select" row={save_cnt} column="5" id="{1}_saveHTT"
+        Var url_for_httrack={_EXCEL_CELL_VALUE}
+
+        if ({url_for_httrack} contains "http") {
+            Paste {_EXCEL_CELL_VALUE}
+            Press "Enter"
+        }
     }
-    
-    Excel "close" save="false" id="{1}_HTTrack"
+
+    Excel "close" save="false" id="{1}_saveHTT"
 
     # Run HTTrack
     Press "Tab" count=7
     Press "Enter" count=2
     Press "Alt+Tab"
     Wait "3s"
+}
+
+
+# Procedure definition.
+# Expected Parameters are:
+# {1} ... web_name
+Procedure save_Ctrl+S {
+
+    # Local Variable
+    Var url_for_ctrls=""
+    Var num_for_ctrls=""
+    Var keyword_for_ctrls=""
+    Var title_for_ctrls=""
+
+    chrome_open
+
+    Excel "open" file="..\data_page_source\HTML\{1}\{1}.xlsx" id="{1}_saveCtrlS"
+
+    for (save_cnt=2; {save_cnt}<362; save_cnt={save_cnt}+1) {
+        Excel "select" row={save_cnt} column="5" id="{1}_saveCtrlS"
+        Var url_for_ctrls={_EXCEL_CELL_VALUE}
+
+        if ({url_for_ctrls} contains "http") {
+            Excel "select" row={save_cnt} column="1" id="{1}_saveCtrlS"
+            Var num_for_ctrls={_EXCEL_CELL_VALUE}
+
+            Excel "select" row={save_cnt} column="4" id="{1}_saveCtrlS"
+            Var keyword_for_ctrls={_EXCEL_CELL_VALUE}
+
+            Excel "select" row={save_cnt} column="6" id="{1}_saveCtrlS"
+            Var title_for_ctrls={_EXCEL_CELL_VALUE}
+
+            chrome_search "{url_for_ctrls}"
+
+            save_chrome "{_PROJECT_DIR}\data_page_source\HTML\{1}\{keyword_for_ctrls}\({num_for_ctrls}){title_for_ctrls}"
+
+            chrome_closetab
+        }
+    }
+
+    Excel "close" save="false" id="{1}_saveHTT"
+    chrome_close
 }
