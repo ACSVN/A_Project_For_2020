@@ -6,7 +6,7 @@
 # Expected parameters are:
 # {1} ... image in "templete" folder which you want to look for and click
 Procedure image_click {
-    
+
     # Wait for 3 mins (5sec * 36 = 180sec)
     for (image_cnt=1; {image_cnt}<=36; image_cnt={image_cnt}+1) {
         Compareto {1} passrate="70" method="search2"
@@ -27,15 +27,15 @@ Procedure image_click {
 # Procedure definition.
 # Expected parameters are:
 # {1} ... image in "templete" folder which you want to click for next page
-Procedure image_pgdn {
-    
+Procedure image_nextpage {
+
     for (image_cnt=1; {image_cnt}<=36; image_cnt={image_cnt}+1) {
         Compareto {1} passrate="70" method="search2"
         if ({_EXIT_CODE} == 0) {
-            Click "image" passrate="50" template={1}
+            Click "image" passrate="50" template="{1}\nextpage"
             break
         } else {
-            Press "Pagedown"
+            Press "Pagedown" count=5
         }
     }
 }
@@ -45,7 +45,7 @@ Procedure image_pgdn {
 # Expected parameters are:
 # {1} ... website name which needs to sort
 Procedure image_sort {
-    
+
     for (sort_cnt=1; {sort_cnt}<=2; sort_cnt={sort_cnt}+1) {
         image_click "{1}\sort\{1}{sort_cnt}.png"
     }
@@ -56,7 +56,7 @@ Procedure image_sort {
 # Expected parameters are:
 # {1} ... image in "templete" folder which you want to check
 Procedure image_check {
-    
+
     # Wait for 3 mins (5sec * 36 = 180sec)
     for (image_cnt=1; {image_cnt}<=36; image_cnt={image_cnt}+1) {
         Compareto {1} passrate="70" method="search2"

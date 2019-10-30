@@ -4,63 +4,27 @@ Include "func\save.tpr"
 # Procedure definition.
 # If you use this function, should be opened formerly in main source code.
 # Expected parameters are:
-#
+# {1} ... web_name from "main.tpr"
+# {2} ... sort_switch from "main.tpr"
+# {3} ... page_num from "main.tpr"
 Procedure main_ANA2 {
 
-    Var file_html="temp1.html"
     Run "..\src\DeleteFileExist.java"
     Wait "5s"
 
-    save_Ctrl+S "{fullPathHtml}"
+    for (page_cnt=1; {page_cnt}<={3}; page_cnt={page_cnt}+1) {
 
-    image_click "completed.png"
+        # If website needs to sort by date
+        if ({2} > 0) {
+            image_sort "{1}"
+        }
 
-    Run "..\src\GetNumberPage.java"
+        # This is thie difference between ANA1 and ANA2 (download html)
+        save_chrome "{_PROJECT_DIR}\html_file\temp{page_cnt}.html"
 
-    for (page_cnt=1; {page_cnt}<={number_pages}; page_cnt={page_cnt}+1) {
-        Var file_html="temp{page_cnt}.html"
-
-    }
-    
-    if ({number_pages} > 1) {
-        for (k=2; {k}<3; k={k}+1) {
-            Var found=0
-            for (foundii=1; {foundii}<30; foundii={foundii}+1) {
-                Var link="{web_name}\click_page\click{k}.png"
-                Log {link}
-
-                Compareto "{web_name}\click_page\google_icon.png" passrate="70" method="search2"
-                if ({_EXIT_CODE} > 0) {
-                    Press "PAGEDOWN"
-                    Var flagimg2=1
-                } else {
-                    Compareto "{link}" passrate="70" method="search2"
-                    if ({_EXIT_CODE} == 0) {
-                        Click "image" passrate="70" template="{link}"
-                        Wait "5s"
-                        Var found=1
-                        Var flagimg2=0
-                        break
-                    }
-                }
-            }
-
-            if ({found} == 1) {
-                Log {k}
-                Wait "5s"
-
-                Var file_html="temp{k}.html"
-                Run "..\src\GetPathHTML.java"
-
-                save_Ctrl+S "{fullPathHtml}"
-
-                image_click "completed.png"
-            }
+        if ({page_cnt} < {page_num}) {
+            image_nextpage "{1}"
         }
     }
-    Log {flagimg2}
-
     Run "..\src\GetHref.java"
-
-
 }

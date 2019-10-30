@@ -17,34 +17,30 @@ Procedure main_webcrawl {
     # Open Chrome
     chrome_open
 
-    # Website that should be login
-    # if ({web_name} matches "newswitch" || {web_name} matches "nikkan") {
-    #     chrome_opentab "{URL}" ""
-    #     login_page "{web_name}"
-    #     chrome_closetab
-    # }
-
     # Each keyword
     for (key_cnt=1; {key_cnt}<=18, key_cnt={key_cnt}+1) {
         input_keyword "{key_cnt}"
 
-        if ({web_name} matches "gigazine") {
-            special_page_gigazine "{keyword_name}"
-        }
-
         # Search keyword by using "URL" include "keyword_name"
         chrome_search "{URL}" "{keyword_name}"
 
-        # if website needs to sort
-        # if ({web_name} matches "") {
-        #     image_sort "{web_name}"
-        # }
+        # if website has no rule for searching keyword
+        if ({web_name} matches "gigazine" || {web_name} matches "monoist") {
+            if ({web_name} matches "gigazine") {
+                Press "Ctrl+End"
+            }
+            #image_click "{web_name}\search"
+            Paste {keyword_name}
+            Press "Enter"
+        }
+
+        # ===== Result of searching keyword opened ===== #
 
         if ({crawl_method} == 1) {
-            # main_ANA1
-            Log "ANA1"
+            main_ANA1
+            #Log "ANA1"
         } else if ({crawl_method} == 2) {
-            # main_ANA2
+            # main_ANA2 "{web_name}" "{page_num}"
             Log "ANA2"
         }
         chrome_closetab

@@ -48,6 +48,8 @@ for (web_cnt=2; {web_cnt}<=25, web_cnt={web_cnt}+1) {
     } else {
         Log "Searching On Website Is Skipped (crawl_switch=0, web_name={web_name})"
     }
+    
+    
 }
 
 
@@ -59,11 +61,11 @@ for (web_cnt=2, {web_cnt}<=25, web_cnt={web_cnt}+1) {
 
     # if save_switch > 0, go to "main_savepage.tpr"
     if ({save_switch} > 0) {
-        #main_savepage
+        main_savepage
         Log "Saving Page Source Is Finished (web_name={web_name})"
     } else {
         Log "Saving Page Source Is Skipped (save_switch=0, web_name={web_name})"
    }
 }
 
-Excel "close"
+Excel "close" save="false" id="input"
