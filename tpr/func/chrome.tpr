@@ -20,14 +20,14 @@ Procedure chrome_open {
 # {1} ... String URL which needs to be replaced
 # {2} ... String keyword which wants to replace
 Procedure chrome_search {
-
+   
     # Replace URL for containing keyword
     if ({1} contains "(keyword)") {
         String replace {1} string="(keyword)" replacement={2}
-        Var _SERVER_CLIPBOARD_CONTENT={_STRING}
+       Var _SERVER_CLIPBOARD_CONTENT={_STRING}
     } else {
-        Var _SERVER_CLIPBOARD_CONTENT={1}
-    }
+       Var _SERVER_CLIPBOARD_CONTENT={1}
+    }   
 
     # New Tab
     Press "F6"

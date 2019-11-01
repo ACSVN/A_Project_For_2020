@@ -27,9 +27,13 @@ Var case_display=""
 Var class_tr_dl=""
 Var click_sort=""
 Var class_gsc_cursor_page=""
+Var class_content=""
+
 
 # Global Variable in "input_keyword(read_input.tpr)"
 Var keyword_name=""
+
+Var url_for_gethref=""
 
 
 Excel "open" file="..\input.xlsx" id="input"
@@ -49,8 +53,8 @@ for (web_cnt=2; {web_cnt}<=25, web_cnt={web_cnt}+1) {
         Log "Searching On Website Is Skipped (crawl_switch=0, web_name={web_name})"
     }
     
-    
 }
+
 
 
 # ========== Saving Pagesource ========== #

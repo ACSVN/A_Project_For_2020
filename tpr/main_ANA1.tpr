@@ -6,7 +6,12 @@ Procedure main_ANA1 {
 
     # Local Variable to send "GetHref.java"
     Var url_for_gethref={_SERVER_CLIPBOARD_CONTENT_TEXT}
+    
+    # Var URL={_SERVER_CLIPBOARD_CONTENT_TEXT}
+
 
     # Get Hreflist
-    Run "..\src\GetHref.java"
+    # Run "..\src\GetHref.java"
+    Run "..\src\nhan\Ana.java"
+
 }
