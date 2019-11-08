@@ -34,8 +34,6 @@ Var class_content=""
 # Global Variable in "input_keyword(read_input.tpr)"
 Var keyword_name=""
 
-Var url_for_gethref=""
-
 
 Excel "open" file="..\input.xlsx" id="input"
 
@@ -53,12 +51,6 @@ for (web_cnt=2; {web_cnt}<=25, web_cnt={web_cnt}+1) {
     } else {
         Log "Searching On Website Is Skipped (crawl_switch=0, web_name={web_name})"
     }
-<<<<<<< HEAD
-    
-=======
-
-
->>>>>>> 1ba7a2c6227e35006881621b8d78c7fc508f036b
 }
 
 

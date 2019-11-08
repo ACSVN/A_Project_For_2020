@@ -42,11 +42,7 @@ Procedure input_url {
     Var class_source={_EXCEL_CELL_VALUE}
     
     Excel select row={1} column="12" sheet="URL" id="input"
-<<<<<<< HEAD
-   Var class_content={_EXCEL_CELL_VALUE}
-=======
     Var class_content={_EXCEL_CELL_VALUE}
->>>>>>> 1ba7a2c6227e35006881621b8d78c7fc508f036b
 
     Excel select row={1} column="13" sheet="URL" id="input"
     Var click_search={_EXCEL_CELL_VALUE}

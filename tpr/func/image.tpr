@@ -9,9 +9,9 @@ Procedure image_click {
 
     # Wait for 3 mins (5sec * 36 = 180sec)
     for (image_cnt=1; {image_cnt}<=36; image_cnt={image_cnt}+1) {
-        Compareto {1} passrate="70" method="search2"
+        Compareto {1} passrate="100" method="search2"
         if ({_EXIT_CODE} == 0) {
-            Click "image" passrate="50" template={1}
+            Click "image" passrate="100" template="{1}" wait="3s"
             break
         } else {
             Wait "5s"
@@ -26,16 +26,22 @@ Procedure image_click {
 
 # Procedure definition.
 # Expected parameters are:
-# {1} ... image in "templete" folder which you want to click for next page
+# {1} ... web_name which needs to click for moving next page
 Procedure image_nextpage {
-
-    for (image_cnt=1; {image_cnt}<=36; image_cnt={image_cnt}+1) {
-        Compareto {1} passrate="70" method="search2"
+    
+    for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
+        Compareto "next_page\{1}" passrate="100" method="search2"
         if ({_EXIT_CODE} == 0) {
-            Click "image" passrate="50" template="{1}\nextpage"
+            Click "image" passrate="100" template="next_page\{1}" wait="5s"
             break
         } else {
-            Press "Pagedown" count=5
+            if ({1} matches "ascii") {
+                Press "Down" count="10"
+            } else if ({1} matches "techcrunch" || {1} matches "wired") {
+                Press "Pagedown"
+            } else {
+                Press "Ctrl+End"
+            }
         }
     }
 }
@@ -43,11 +49,11 @@ Procedure image_nextpage {
 
 # Procedure definition.
 # Expected parameters are:
-# {1} ... website name which needs to sort
+# {1} ... web_name which needs to sort
+# {2} ... click_sort from "input.xlsx"
 Procedure image_sort {
-
-    for (sort_cnt=1; {sort_cnt}<=2; sort_cnt={sort_cnt}+1) {
-        image_click "{1}\sort\{1}{sort_cnt}.png"
+    for (sort_cnt=1; {sort_cnt}<={2}; sort_cnt={sort_cnt}+1) {
+        image_click "sort\{1}"
     }
 }
 

@@ -1,30 +1,37 @@
 Include "func\image.tpr"
 Include "func\save.tpr"
+Include "func\chrome.tpr"
 
 # Procedure definition.
-# If you use this function, should be opened formerly in main source code.
-# Expected parameters are:
-# {1} ... web_name from "main.tpr"
-# {2} ... sort_switch from "main.tpr"
-# {3} ... page_num from "main.tpr"
+# If you use this function, keyword page should be opened formerly in main source code.
 Procedure main_ANA2 {
 
-    Run "..\src\DeleteFileExist.java"
-    Wait "5s"
+    #Run "..\src\DeleteFileExist.java"
+    #Wait "5s"
+    Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp1.html"
+    Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp2.html"
+    Exec "cmd.exe /C del /S /Q {_PROJECT_DIR}\data_tmp_html\temp1_files"
+    Exec "cmd.exe /C del /S /Q {_PROJECT_DIR}\data_tmp_html\temp2_files"
+    Exec "cmd.exe /C rmdir {_PROJECT_DIR}\data_tmp_html\temp1_files"
+    Exec "cmd.exe /C rmdir {_PROJECT_DIR}\data_tmp_html\temp2_files"
+    
+    
+    # If website needs to sort by date
+    if ({click_sort} > 0) {
+        image_sort "{web_name}" "{click_sort}"
+    }
 
-    for (page_cnt=1; {page_cnt}<={3}; page_cnt={page_cnt}+1) {
-
-        # If website needs to sort by date
-        if ({2} > 0) {
-            image_sort "{1}"
-        }
-
+    for (page_cnt=1; {page_cnt}<={page_num}; page_cnt={page_cnt}+1) {
         # This is thie difference between ANA1 and ANA2 (download html)
-        save_chrome "{_PROJECT_DIR}\html_file\temp{page_cnt}.html"
+        save_chrome "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
 
         if ({page_cnt} < {page_num}) {
-            image_nextpage "{1}"
+            if ({1} matches "itmedia") {
+                chrome_nextpage
+            } else {
+                image_nextpage "{web_name}"
+            }
         }
     }
-    Run "..\src\GetHref.java"
+    #Run "..\src\GetHref.java"
 }

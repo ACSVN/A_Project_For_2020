@@ -24,14 +24,12 @@ Procedure main_webcrawl {
         chrome_search "{URL}" "{keyword_name}"
 
         # if website has no rule for searching keyword
-        if ({web_name} matches "gigazine" || {web_name} matches "monoist") {
-            if ({web_name} matches "gigazine") {
-                Press "Ctrl+End"
-            }
-            #image_click "{web_name}\search"
-            Paste {keyword_name}
-            Press "Enter"
+        if ({web_name} matches "gigazine") {
+            Press "Ctrl+End"
         }
+        #image_click "{web_name}\search"
+        Paste {keyword_name}
+        Press "Enter"
 
         # ===== Result of searching keyword opened ===== #
 
@@ -39,8 +37,8 @@ Procedure main_webcrawl {
             main_ANA1
             #Log "ANA1"
         } else if ({crawl_method} == 2) {
-            # main_ANA2 "{web_name}" "{page_num}"
-            Log "ANA2"
+            main_ANA2 "{web_name}" "{page_num}"
+            #Log "ANA2"
         }
         chrome_closetab
     }
