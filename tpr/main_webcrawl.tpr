@@ -8,22 +8,25 @@ Include "main_ANA2.tpr"
 # Procedure definition.
 Procedure main_webcrawl {
 
+    # Global variable in "main_webcrawl" (for "chrome_search")
+    Var search_cnt=1
+
     # Open Chrome
     chrome_open
 
     for (key_cnt=1; {key_cnt}<=2, key_cnt={key_cnt}+1) {
-        
+
         # Input keyword from "input.xlsx"
         input_keyword "{key_cnt}"
 
-        # Gigazine can't research these keyword -> PASS (two letters or less)
+        # Gigazine cannot research these keyword -> PASS (two letters or less)
         if ({web_name} matches "gigazine" && ({keyword_name} matches "AI" || {keyword_name} matches "MR" || {keyword_name} matches "VR")) {
             continue
         }
-        
+
         # Search keyword by using "URL" include "keyword_name"
         chrome_search "{URL}" "{keyword_name}"
-        
+
         # if website-URL has no rule for searching keyword
         if ({web_name} matches "gigazine") {
             Press "Ctrl+End"
@@ -33,16 +36,13 @@ Procedure main_webcrawl {
         }
 
         # ===== Result of searching keyword opened ===== #
-        
+
         # If branch depends on the number of {crawl_method}
         if ({crawl_method} == 1) {
             main_ANA1
         } else if ({crawl_method} == 2) {
             main_ANA2
         }
-        
-        # When finished getting data, close tab for next keyword
-        chrome_closetab
     }
 
     # Close Chrome

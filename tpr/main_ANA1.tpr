@@ -3,6 +3,9 @@ Procedure main_ANA1 {
     # Copy URL from Google Chrome
     Press F6
     Press "Ctrl+C"
+    
+    # Back to page-focus 
+    Press "Shift+F6"
 
     # Local Variable to send "GetHref.java"
     Var url_for_gethref={_SERVER_CLIPBOARD_CONTENT_TEXT}
