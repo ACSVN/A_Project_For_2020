@@ -1,10 +1,5 @@
-# This source code was created by Akira Nose.
-# Created on October 23, 2019
-
-
 # Procedure definition.
 Procedure chrome_open {
-
      Press "Windows+R"
      Paste "Chrome"
      Press "Enter" wait="3s"
@@ -37,11 +32,13 @@ Procedure chrome_search {
 
 # Procedure definition.
 # If you use this function, Chrome should be opened formerly on main source code.
+# {1} ... String URL which needs to be replaced
+# {2} ... String page_num which wants to replace
 Procedure chrome_nextpage {
      Press "F6"
      Press "Ctrl+C"
      Var url_nextpage_for_itmedia={_SERVER_CLIPBOARD_CONTENT_TEXT}
-     String replace {url_nextpage_for_itmedia} string="start=0" replacement="start=10"
+     String replace {url_nextpage_for_itmedia} string={1} replacement={2}
      Var _SERVER_CLIPBOARD_CONTENT={_STRING}
      Press "Ctrl+V"
      Press "Enter" wait="10s"

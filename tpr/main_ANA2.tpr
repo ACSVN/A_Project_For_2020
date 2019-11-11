@@ -6,8 +6,7 @@ Include "func\chrome.tpr"
 # If you use this function, keyword page should be opened formerly in main source code.
 Procedure main_ANA2 {
 
-    #Run "..\src\DeleteFileExist.java"
-    #Wait "5s"
+    # Delete html files which has already existed
     Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp1.html"
     Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp2.html"
     Exec "cmd.exe /C del /S /Q {_PROJECT_DIR}\data_tmp_html\temp1_files"
@@ -22,16 +21,17 @@ Procedure main_ANA2 {
     }
 
     for (page_cnt=1; {page_cnt}<={page_num}; page_cnt={page_cnt}+1) {
-        # This is thie difference between ANA1 and ANA2 (download html)
+        
+        # download html files to get content (ANA2 website can't get data from Chrome directly)
         save_chrome "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
 
         if ({page_cnt} < {page_num}) {
-            if ({1} matches "itmedia") {
-                chrome_nextpage
+            if ({web_name} matches "itmedia") {
+                chrome_nextpage "start=0" "start=10"
             } else {
                 image_nextpage "{web_name}"
             }
         }
     }
-    #Run "..\src\GetHref.java"
+//    Run "..\src\GetHref.java"
 }

@@ -1,12 +1,7 @@
-# This source code was created by Akira Nose.
-# Created on October 23, 2019
-
-
 Include "func\chrome.tpr"
 Include "func\login.tpr"
 Include "func\image.tpr"
 Include "func\input.tpr"
-
 Include "main_ANA1.tpr"
 Include "main_ANA2.tpr"
 
@@ -16,30 +11,37 @@ Procedure main_webcrawl {
     # Open Chrome
     chrome_open
 
-    # Each keyword
     for (key_cnt=1; {key_cnt}<=2, key_cnt={key_cnt}+1) {
+        
+        # Input keyword from "input.xlsx"
         input_keyword "{key_cnt}"
 
+        # Gigazine can't research these keyword -> PASS (two letters or less)
+        if ({web_name} matches "gigazine" && ({keyword_name} matches "AI" || {keyword_name} matches "MR" || {keyword_name} matches "VR")) {
+            continue
+        }
+        
         # Search keyword by using "URL" include "keyword_name"
         chrome_search "{URL}" "{keyword_name}"
-
-        # if website has no rule for searching keyword
+        
+        # if website-URL has no rule for searching keyword
         if ({web_name} matches "gigazine") {
             Press "Ctrl+End"
+            image_click "search\{web_name}"
+            Paste {keyword_name}
+            Press "Enter" wait="10s"
         }
-        #image_click "{web_name}\search"
-        Paste {keyword_name}
-        Press "Enter"
 
         # ===== Result of searching keyword opened ===== #
-
+        
+        # If branch depends on the number of {crawl_method}
         if ({crawl_method} == 1) {
             main_ANA1
-            #Log "ANA1"
         } else if ({crawl_method} == 2) {
-            main_ANA2 "{web_name}" "{page_num}"
-            #Log "ANA2"
+            main_ANA2
         }
+        
+        # When finished getting data, close tab for next keyword
         chrome_closetab
     }
 
