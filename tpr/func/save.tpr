@@ -6,12 +6,12 @@ Include "chrome.tpr"
 # {1} ... fullPath name to save pagesource (html file)
 Procedure save_chrome {
 
-    Press "Ctrl+S" wait="3s"
+    Press "Ctrl+S" wait="2s"
     Press "Alt+N"
-    Press "Delete"
+    
     Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V" wait="2s"
-    Press "Enter" wait="10s"
+    Press "Alt+S" wait="10s"
 }
 
 
@@ -63,14 +63,17 @@ Procedure save_HTTrack {
 # {1} ... web_name
 Procedure save_Ctrl+S {
 
-    # Local Variable
+    # Global Variable in "save.tpr" (for getting data from Excel)
     Var url_for_ctrls=""
     Var num_for_ctrls=""
     Var keyword_for_ctrls=""
     Var title_for_ctrls=""
+    
+    # Global variable in "save.tpr" (for "chrome_search")
+    Var search_cnt=1
 
     chrome_open
-
+    
     Excel "open" file="..\data_page_source\HTML\{1}\{1}.xlsx" id="{1}_saveCtrlS"
 
     for (save_cnt=2; {save_cnt}<362; save_cnt={save_cnt}+1) {
@@ -90,8 +93,6 @@ Procedure save_Ctrl+S {
             chrome_search "{url_for_ctrls}"
 
             save_chrome "{_PROJECT_DIR}\data_page_source\HTML\{1}\{keyword_for_ctrls}\({num_for_ctrls}){title_for_ctrls}"
-
-            chrome_closetab
         }
     }
 
