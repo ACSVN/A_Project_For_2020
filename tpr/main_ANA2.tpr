@@ -13,21 +13,28 @@ Procedure main_ANA2 {
     Exec "cmd.exe /C del /S /Q {_PROJECT_DIR}\data_tmp_html\temp2_files"
     Exec "cmd.exe /C rmdir {_PROJECT_DIR}\data_tmp_html\temp1_files"
     Exec "cmd.exe /C rmdir {_PROJECT_DIR}\data_tmp_html\temp2_files"
-    
-    
+
     # If website needs to sort by date
     if ({click_sort} > 0) {
         image_sort "{web_name}" "{click_sort}"
     }
 
+    # Engadget: Click image first
+    if ({web_name} matches "engadget") {
+        image_nextpage "{web_name}"
+    }
+
     for (page_cnt=1; {page_cnt}<={page_num}; page_cnt={page_cnt}+1) {
-        
-        # download html files to get content (ANA2 website can't get data from Chrome directly)
+
+        # Download html files to get content (ANA2 website cannot get data from Chrome directly)
         save_chrome "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
 
+        # Go to Next Page
         if ({page_cnt} < {page_num}) {
             if ({web_name} matches "itmedia") {
                 chrome_nextpage "start=0" "start=10"
+            } else if ({web_name} matches "techcrunch") {
+                chrome_nextpage "stp=1" "stp=2"
             } else {
                 image_nextpage "{web_name}"
             }
