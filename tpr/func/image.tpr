@@ -26,18 +26,11 @@ Procedure image_click {
 Procedure image_nextpage {
     
     for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
+        Press "Space" wait="1s"
         Compareto "next_page\{1}" passrate="100" method="search2"
         if ({_EXIT_CODE} == 0) {
             Click "image" passrate="100" template="next_page\{1}" wait="5s"
             break
-        } else {
-            if ({1} matches "ascii") {
-                Press "Down" count="10"
-            } else if ({1} matches "techcrunch" || {1} matches "wired") {
-                Press "Pagedown"
-            } else {
-                Press "Ctrl+End"
-            }
         }
     }
 }
