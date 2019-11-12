@@ -11,6 +11,6 @@
 <sotype2>classes</sotype2>
 </paths>
 <tver>5.0.5-20190816.1</tver>
-<lastmod>01-11-19 11:17</lastmod>
-<editors>tpr\main_ANA1.tpr;src\nhan\WorkingExcelFile.java;src\nhan\MyHref.java;tpr\func\chrome.tpr;tpr\func\input.tpr;tpr\main_webcrawl.tpr;src\nhan\Ana.java;tpr\main.tpr</editors>
+<lastmod>12-11-19 10:02</lastmod>
+<editors>tpr\main_webcrawl.tpr;tpr\main.tpr;tpr\func\input.tpr;tpr\func\chrome.tpr;tpr\main_ANA1.tpr</editors>
 </tprproject>
