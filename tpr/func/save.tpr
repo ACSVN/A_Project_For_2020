@@ -6,11 +6,11 @@ Include "chrome.tpr"
 # {1} ... fullPath name to save pagesource (html file)
 Procedure save_chrome {
 
-    Press "Ctrl+S" wait="2s"
+    Press "Ctrl+S" wait="1s"
     Press "Alt+N"
     
     Var _SERVER_CLIPBOARD_CONTENT={1}
-    Press "Ctrl+V" wait="2s"
+    Press "Ctrl+V" wait="1s"
     Press "Alt+S" wait="10s"
 }
 

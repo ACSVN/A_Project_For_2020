@@ -14,7 +14,7 @@ Procedure main_webcrawl {
     # Open Chrome
     chrome_open
 
-    for (key_cnt=1; {key_cnt}<=2, key_cnt={key_cnt}+1) {
+    for (key_cnt=17; {key_cnt}<=17, key_cnt={key_cnt}+1) {
 
         # Input keyword from "input.xlsx"
         input_keyword "{key_cnt}"
@@ -30,9 +30,9 @@ Procedure main_webcrawl {
         # if website-URL has no rule for searching keyword
         if ({web_name} matches "gigazine") {
             Press "Ctrl+End"
-            image_click "search\{web_name}"
+            image_click "search\{web_name}" "10" "1s"
             Paste {keyword_name}
-            Press "Enter" wait="10s"
+            Press "Enter" wait="1s"
         }
 
         # ===== Result of searching keyword opened ===== #
