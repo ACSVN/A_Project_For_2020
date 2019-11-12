@@ -1,5 +1,15 @@
-# Compiled class file
+# Compiled class files
 classes/*
+!classes/.gitkeep
 
 # reports files
 reports/*
+!reports/.gitkeep
+
+# data_storge files
+data_storge/*
+!data_storge/.gitkeep
+
+# data_tmp_html files
+data_tmp_html/*
+!data_tmp_html/.gitkeep
