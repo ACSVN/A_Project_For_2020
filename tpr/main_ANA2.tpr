@@ -1,6 +1,5 @@
 Include "func\image.tpr"
 Include "func\save.tpr"
-Include "func\chrome.tpr"
 
 # Procedure definition.
 # If you use this function, keyword page should be opened formerly in main source code.
