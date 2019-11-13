@@ -1,14 +1,13 @@
-# This source code was created by Akira Nose.
-# Created on October 25, 2019
+Include "savepage\HTTrack.tpr"
+Include "savepage\CtrlS.tpr"
 
-Include "func\save.tpr"
 
 # Procedure definition.
 Procedure main_savepage {
 
     if ({save_method} == 1) {
-        save_HTTrack "{web_name}"
+        savepage_HTTrack
     } else if ({save_method} == 2) {
-        save_Ctrl+S "{web_name}"
+        savepage_CtrlS
     }
 }

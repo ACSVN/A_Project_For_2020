@@ -1,0 +1,54 @@
+Include "..\func\image.tpr"
+
+
+# Procedure definition.
+# "Gigazine" cannot search keyword directry by using URL.
+Procedure special_gigazine_search {
+    Press "Ctrl+End"
+    image_click "search\{web_name}" "10" "1s"
+    Paste {keyword_name}
+    Press "Enter" wait="1s"
+}
+
+
+# Procedure definition.
+# "Engadget" should click "もっと読む" at first.
+Procedure special_engadget_firstimage {
+    for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
+        Compareto "next_page\engadget" passrate="90" method="search2"
+        if ({_EXIT_CODE} == 0) {
+            Click "image" passrate="90" template="next_page\engadget" wait="1s"
+            break
+        } else {
+            Press "Space" wait="1s"
+        }
+    }
+}
+
+
+# Procedure definition.
+# If you use this function, Chrome should be opened formerly on main source code.
+# {1} ... String URL which needs to be replaced
+# {2} ... String page_num which wants to replace
+Procedure special_nextpage {
+    Press "F6"
+    Press "Ctrl+C"
+    Var url_for_nextpage={_SERVER_CLIPBOARD_CONTENT_TEXT}
+    
+    String replace {url_for_nextpage} string={1} replacement={2}
+    Var _SERVER_CLIPBOARD_CONTENT={_STRING}
+    
+    Press "Ctrl+V"
+    Press "Enter" wait="10s"
+}
+
+
+# Procedure definition.
+# Expected parameters are:
+# {1} ... web_name which needs to sort
+# {2} ... click_sort from "input.xlsx"
+Procedure special_sort {
+    for (sort_cnt=1; {sort_cnt}<={2}; sort_cnt={sort_cnt}+1) {
+        image_click "sort\{1}" "30" "1s"
+    }
+}

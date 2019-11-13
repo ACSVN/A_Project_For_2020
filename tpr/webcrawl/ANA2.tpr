@@ -1,9 +1,10 @@
-Include "func\image.tpr"
-Include "func\save.tpr"
+Include "special_page.tpr"
+Include "..\func\chrome.tpr"
+
 
 # Procedure definition.
 # If you use this function, keyword page should be opened formerly in main source code.
-Procedure main_ANA2 {
+Procedure webcrawl_ANA2 {
 
     # Delete html files which has already existed
     Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp1.html"
@@ -15,12 +16,12 @@ Procedure main_ANA2 {
 
     # If website needs to sort by date
     if ({click_sort} > 0) {
-        image_sort "{web_name}" "{click_sort}"
+        special_sort "{web_name}" "{click_sort}"
     }
 
     # Engadget: Click image first
     if ({web_name} matches "engadget") {
-        image_engadget
+        special_engadget_firstimage
     }
     
     # Global Variable (to use image_nextpage)
@@ -30,14 +31,14 @@ Procedure main_ANA2 {
         
         # Download html files to get content (ANA2 website cannot get data from Chrome directly)
         Wait "10s"
-        save_chrome "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
+        chrome_savepage "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
 
         # Go to Next Page
         if ({page_cnt} < {page_num}) {
             if ({web_name} matches "itmedia") {
-                chrome_nextpage "start=0" "start=10"
+                special_nextpage "start=0" "start=10"
             } else if ({web_name} matches "techcrunch") {
-                chrome_nextpage "stp=1" "stp=2"
+                special_nextpage "stp=1" "stp=2"
             } else {
                 image_nextpage "{web_name}"
             }

@@ -1,9 +1,9 @@
+Include "webcrawl\ANA1.tpr"
+Include "webcrawl\ANA2.tpr"
+Include "webcrawl\special_page.tpr"
 Include "func\chrome.tpr"
-Include "func\login.tpr"
-Include "func\image.tpr"
 Include "func\input.tpr"
-Include "main_ANA1.tpr"
-Include "main_ANA2.tpr"
+
 
 # Procedure definition.
 Procedure main_webcrawl {
@@ -29,19 +29,16 @@ Procedure main_webcrawl {
 
         # if website-URL has no rule for searching keyword
         if ({web_name} matches "gigazine") {
-            Press "Ctrl+End"
-            image_click "search\{web_name}" "10" "1s"
-            Paste {keyword_name}
-            Press "Enter" wait="1s"
+            special_gigazine_search
         }
 
         # ===== Result of searching keyword opened ===== #
 
         # If branch depends on the number of {crawl_method}
         if ({crawl_method} == 1) {
-            main_ANA1
+            webcrawl_ANA1
         } else if ({crawl_method} == 2) {
-            main_ANA2
+            webcrawl_ANA2
         }
     }
 

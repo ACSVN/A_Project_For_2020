@@ -1,4 +1,6 @@
-Procedure main_ANA1 {
+# Procedure definition.
+# If you use this function, keyword page should be opened formerly in main source code.
+Procedure webcrawl_ANA1 {
 
     # Copy URL from Google Chrome
     Press F6

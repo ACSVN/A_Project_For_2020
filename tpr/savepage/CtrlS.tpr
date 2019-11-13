@@ -1,0 +1,43 @@
+Include "..\func\chrome.tpr"
+
+
+# Procedure definition.
+Procedure savepage_CtrlS {
+
+    # Global Variable in "save.tpr" (for getting data from Excel)
+    Var url_for_ctrls=""
+    Var num_for_ctrls=""
+    Var keyword_for_ctrls=""
+    Var title_for_ctrls=""
+    
+    # Global variable in "save.tpr" (for "chrome_search")
+    Var search_cnt=1
+    
+    # Open Chrome
+    chrome_open
+    
+    Excel "open" file="..\data_page_source\HTML\{web_name}\{web_name}.xlsx" id="{web_name}_saveCtrlS"
+
+    for (save_cnt=2; {save_cnt}<362; save_cnt={save_cnt}+1) {
+        Excel "select" row={save_cnt} column="5" id="{web_name}_saveCtrlS"
+        Var url_for_ctrls={_EXCEL_CELL_VALUE}
+
+        if ({url_for_ctrls} contains "http") {
+            Excel "select" row={save_cnt} column="1" id="{web_name}_saveCtrlS"
+            Var num_for_ctrls={_EXCEL_CELL_VALUE}
+
+            Excel "select" row={save_cnt} column="4" id="{web_name}_saveCtrlS"
+            Var keyword_for_ctrls={_EXCEL_CELL_VALUE}
+
+            Excel "select" row={save_cnt} column="6" id="{web_name}_saveCtrlS"
+            Var title_for_ctrls={_EXCEL_CELL_VALUE}
+
+            chrome_search "{url_for_ctrls}"
+
+            chrome_savepage "{_PROJECT_DIR}\data_page_source\HTML\{web_name}\{keyword_for_ctrls}\({num_for_ctrls}){title_for_ctrls}"
+        }
+    }
+
+    Excel "close" save="false" id="{web_name}_saveCtrlS"
+    chrome_close
+}

@@ -33,17 +33,17 @@ Procedure chrome_search {
 
 
 # Procedure definition.
-# If you use this function, Chrome should be opened formerly on main source code.
-# {1} ... String URL which needs to be replaced
-# {2} ... String page_num which wants to replace
-Procedure chrome_nextpage {
-    Press "F6"
-    Press "Ctrl+C"
-    Var url_for_nextpage={_SERVER_CLIPBOARD_CONTENT_TEXT}
-    String replace {url_for_nextpage} string={1} replacement={2}
-    Var _SERVER_CLIPBOARD_CONTENT={_STRING}
-    Press "Ctrl+V"
-    Press "Enter" wait="10s"
+# If you want to use this procedure, Chrome should be opened formerly in main script.
+# Expected parameters are:
+# {1} ... fullPath name to save pagesource (html file)
+Procedure chrome_savepage {
+
+    Press "Ctrl+S" wait="1s"
+    Press "Alt+N"
+    
+    Var _SERVER_CLIPBOARD_CONTENT={1}
+    Press "Ctrl+V" wait="1s"
+    Press "Alt+S" wait="10s"
 }
 
 
