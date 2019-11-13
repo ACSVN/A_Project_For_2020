@@ -36,7 +36,8 @@ Procedure image_nextpage {
             image_click "next_page\{1}" "10" "1s"
             break
         } else {
-            Press "Down" count="15" wait="1s"
+            Press "Space" wait="1s"
+//            Press "Down" count="15" wait="1s"
         }
     }
 }
@@ -58,12 +59,11 @@ Procedure image_sort {
 Procedure image_engadget {
     for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
         Compareto "next_page\engadget" passrate="90" method="search2"
-        
         if ({_EXIT_CODE} == 0) {
             Click "image" passrate="90" template="next_page\engadget" wait="1s"
             break
         } else {
-            Press "Down" count="15" wait="1s"
+            Press "Space" wait="1s"
         }
     }
 }

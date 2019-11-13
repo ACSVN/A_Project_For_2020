@@ -14,7 +14,7 @@ Procedure main_webcrawl {
     # Open Chrome
     chrome_open
 
-    for (key_cnt=17; {key_cnt}<=17, key_cnt={key_cnt}+1) {
+    for (key_cnt=16; {key_cnt}<=17, key_cnt={key_cnt}+1) {
 
         # Input keyword from "input.xlsx"
         input_keyword "{key_cnt}"
