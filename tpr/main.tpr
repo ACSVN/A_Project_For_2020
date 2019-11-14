@@ -24,7 +24,6 @@ Var case_display=""
 Var class_tr_dl=""
 Var click_sort=""
 Var class_gsc_cursor_page=""
-Var class_content=""
 
 
 # Global Variable in "input_keyword(read_input.tpr)"
