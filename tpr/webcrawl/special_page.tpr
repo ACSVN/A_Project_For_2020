@@ -19,7 +19,7 @@ Procedure special_engadget_firstimage {
     for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
         Compareto "next_page\engadget" passrate="90" method="search2"
         if ({_EXIT_CODE} == 0) {
-            Click "image" passrate="90" template="next_page\engadget" wait="1s"
+            Click "image" passrate="90" template="next_page\engadget" wait={load_waittime}
             break
         } else {
             Press "Space" wait="1s"
@@ -41,7 +41,7 @@ Procedure special_nextpage {
     Var _SERVER_CLIPBOARD_CONTENT={_STRING}
     
     Press "Ctrl+V"
-    Press "Enter" wait="10s"
+    Press "Enter" wait={load_waittime}
 }
 
 
@@ -52,5 +52,6 @@ Procedure special_nextpage {
 Procedure special_sort {
     for (sort_cnt=1; {sort_cnt}<={2}; sort_cnt={sort_cnt}+1) {
         image_click "sort\{1}" "30" "1s"
+        Wait {load_waittime}
     }
 }

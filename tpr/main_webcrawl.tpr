@@ -24,10 +24,10 @@ Procedure main_webcrawl {
             continue
         }
 
-        # Search keyword by using "URL" include "keyword_name"
+        # Search keyword by using "URL" include "keyword_name" (+ wait {load_waittime})
         chrome_search "{URL}" "{keyword_name}"
 
-        # if website-URL has no rule for searching keyword
+        # if website-URL has no rule for searching keyword (+ wait 15s)
         if ({web_name} matches "gigazine") {
             special_gigazine_search
         }

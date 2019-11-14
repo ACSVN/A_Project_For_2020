@@ -34,6 +34,7 @@ Procedure image_nextpage {
         
         if ({_EXIT_CODE} == 0) {
             image_click "next_page\{1}" "10" "1s"
+            Wait {load_waittime}
             break
         } else {
             Press "Space" wait="1s"

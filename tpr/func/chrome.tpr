@@ -26,7 +26,7 @@ Procedure chrome_search {
         Press "F6"
     }
     Press "Ctrl+V" wait="1s"
-    Press "Enter" wait="10s"
+    Press "Enter" wait={load_waittime}
 
     Eval search_cnt={search_cnt}+1
 }
@@ -43,7 +43,7 @@ Procedure chrome_savepage {
     
     Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V" wait="1s"
-    Press "Alt+S" wait="10s"
+    Press "Alt+S" wait={save_waittime}
 }
 
 
