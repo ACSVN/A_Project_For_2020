@@ -1,73 +1,89 @@
 # Procedure definition.
-# If you use this function, should be opened formerly in main source code.
-# Expected parameters are:
-# {1} ... Row number to read in the sheet named "URL" of "input.xlsx"
-Procedure input_url {
+Procedure input_console {
 
-    Excel select row={1} column="1" sheet="URL" id="input"
+    Excel select row="2" column="2" sheet="console" id="input"
+    Var start_web_row={_EXCEL_CELL_VALUE}
+    
+    Excel select row="3" column="2" sheet="console" id="input"
+    Var finish_web_row={_EXCEL_CELL_VALUE}
+    
+    Excel select row="6" column="2" sheet="console" id="input"
+    Var start_key_row={_EXCEL_CELL_VALUE}
+    
+    Excel select row="7" column="2" sheet="console" id="input"
+    Var finish_key_row={_EXCEL_CELL_VALUE}
+
+}
+
+# Procedure definition.
+# Expected parameters are:
+# {1} ... Row number to read in the sheet named "website" of "input.xlsx"
+Procedure input_website {
+
+    Excel select row={1} column="1" sheet="website" id="input"
     Var web_name={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="2" sheet="URL" id="input"
+    Excel select row={1} column="2" sheet="website" id="input"
     Var crawl_switch={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="3" sheet="URL" id="input"
+    Excel select row={1} column="3" sheet="website" id="input"
     Var save_switch={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="4" sheet="URL" id="input"
+    Excel select row={1} column="4" sheet="website" id="input"
     Var crawl_method={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="5" sheet="URL" id="input"
+    Excel select row={1} column="5" sheet="website" id="input"
     Var save_method={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="6" sheet="URL" id="input"
+    Excel select row={1} column="6" sheet="website" id="input"
     Var page_num={_EXCEL_CELL_VALUE}
     
-    Excel select row={1} column="7" sheet="URL" id="input"
+    Excel select row={1} column="7" sheet="website" id="input"
     Var load_waittime={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="8" sheet="URL" id="input"
+    Excel select row={1} column="8" sheet="website" id="input"
     Var save_waittime={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="9" sheet="URL" id="input"
+    Excel select row={1} column="9" sheet="website" id="input"
     Var URL={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="10" sheet="URL" id="input"
+    Excel select row={1} column="10" sheet="website" id="input"
     Var class_href={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="11" sheet="URL" id="input"
+    Excel select row={1} column="11" sheet="website" id="input"
     Var class_title={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="12" sheet="URL" id="input"
+    Excel select row={1} column="12" sheet="website" id="input"
     Var class_postdate={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="13" sheet="URL" id="input"
+    Excel select row={1} column="13" sheet="website" id="input"
     Var class_source={_EXCEL_CELL_VALUE}
     
-    Excel select row={1} column="14" sheet="URL" id="input"
+    Excel select row={1} column="14" sheet="website" id="input"
     Var class_content={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="15" sheet="URL" id="input"
+    Excel select row={1} column="15" sheet="website" id="input"
     Var click_search={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="16" sheet="URL" id="input"
+    Excel select row={1} column="16" sheet="website" id="input"
     Var class_next_page={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="17" sheet="URL" id="input"
+    Excel select row={1} column="17" sheet="website" id="input"
     Var domain={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="18" sheet="URL" id="input"
+    Excel select row={1} column="18" sheet="website" id="input"
     Var replace_nxt_p={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="19" sheet="URL" id="input"
+    Excel select row={1} column="19" sheet="website" id="input"
     Var case_display={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="20" sheet="URL" id="input"
+    Excel select row={1} column="20" sheet="website" id="input"
     Var class_tr_dl={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="21" sheet="URL" id="input"
+    Excel select row={1} column="21" sheet="website" id="input"
     Var click_sort={_EXCEL_CELL_VALUE}
 
-    Excel select row={1} column="22" sheet="URL" id="input"
+    Excel select row={1} column="22" sheet="website" id="input"
     Var class_gsc_cursor_page={_EXCEL_CELL_VALUE}
 }
 
