@@ -52,6 +52,6 @@ Procedure special_nextpage {
 Procedure special_sort {
     for (sort_cnt=1; {sort_cnt}<={2}; sort_cnt={sort_cnt}+1) {
         image_click "sort\{1}" "10" "1s"
-        Wait "3s"
     }
+    Wait "3s"
 }
