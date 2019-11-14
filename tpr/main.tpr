@@ -2,13 +2,13 @@ Include "main_webcrawl.tpr"
 Include "main_savepage.tpr"
 Include "func\input.tpr"
 
-# GLobal Variable in "input_console"
+# Variable in "input_console"
 Var start_web_row=0
 Var finish_web_row=0
 Var start_key_row=0
 Var finish_key_row=0
 
-# Global Variable in "input_website"
+# Variable in "input_website"
 Var web_name=""
 Var crawl_switch=0
 Var save_switch=0
@@ -32,7 +32,7 @@ Var class_tr_dl=""
 Var click_sort=""
 Var class_gsc_cursor_page=""
 
-# Global Variable in "input_keyword"
+# Variable in "input_keyword"
 Var keyword_name=""
 
 
@@ -45,11 +45,11 @@ input_console
 
 # ========== Creating Excel File ========== #
 
-# Check whether each website should save Excel file or not
+# Check whether or not each website should save Excel file
 for (web_cnt={start_web_row}; {web_cnt}<={finish_web_row}; web_cnt={web_cnt}+1) {
     input_website "{web_cnt}"
 
-    # If crawl_switch > 0, go to "main_openpage.tpr"
+    # If crawl_switch > 0, go to "main_webcrawl.tpr"
     if ({crawl_switch} > 0) {
         main_webcrawl
         Log "Searching On Website Is Finished (web_name={web_name})"
@@ -61,7 +61,7 @@ for (web_cnt={start_web_row}; {web_cnt}<={finish_web_row}; web_cnt={web_cnt}+1) 
 
 # ========== Saving Pagesource ========== #
 
-# Check whether each website should save page source or not
+# Check whether or not each website should save page source
 for (web_cnt={start_web_row}; {web_cnt}<={finish_web_row}; web_cnt={web_cnt}+1) {
     input_website "{web_cnt}"
 

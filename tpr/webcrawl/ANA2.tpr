@@ -23,12 +23,12 @@ Procedure webcrawl_ANA2 {
     if ({web_name} matches "engadget") {
         special_engadget_firstimage
     }
-    
+
     # Global Variable (to use image_nextpage)
     Var image_exist=1
 
     for (page_cnt=1; {page_cnt}<={page_num}; page_cnt={page_cnt}+1) {
-        
+
         # Download html files to get content (ANA2 website cannot get data from Chrome directly)
         chrome_savepage "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
 
@@ -42,8 +42,8 @@ Procedure webcrawl_ANA2 {
                 image_nextpage "{web_name}"
             }
         }
-        
-        # アイテム数不足等で次ページ画像を押せなかった場合は次のキーワードへ抜ける
+
+        # When HCR could not click nextpage image (because of the loss of items), go to next keyword
         if ({image_exist} == 0) {
             break
         }

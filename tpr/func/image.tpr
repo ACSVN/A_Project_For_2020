@@ -6,14 +6,18 @@
 Procedure image_click {
 
     for (image_click_cnt=1; {image_click_cnt}<={2}; image_click_cnt={image_click_cnt}+1) {
-        Compareto {1} passrate="90" method="search2"
+
+        # First: Look for the image
+        Compareto "{1}" passrate="90" method="search2"
+
         if ({_EXIT_CODE} == 0) {
+            # Second: if image was found, click it and exit this loop
             Click "image" passrate="90" template="{1}" wait="1s"
             break
         } else {
-            Wait {3}
+            Wait "{3}"
             if ({image_click_cnt} == {2}) {
-                # image_exist変数をここで導入しておくことで画像がない場合に備えて対応
+                # if image was not found, image_exist will change from 1 to 0
                 Var image_exist=0
                 break
             }
@@ -26,39 +30,18 @@ Procedure image_click {
 # Expected parameters are:
 # {1} ... web_name which needs to click for moving next page
 Procedure image_nextpage {
-    
+
     for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
-        
+
         # First: Look for Google icon (because page button is close to this image)
         Compareto "next_page\_google-icon" passrate="90" method="search2"
-        
+
         if ({_EXIT_CODE} == 0) {
-            image_click "next_page\{1}" "10" "1s"
-            Wait {load_waittime}
+            image_click "next_page\{1}" "5" "1s"
+            Wait "{load_waittime}"
             break
         } else {
             Press "Space" wait="1s"
-        }
-    }
-}
-
-
-# Procedure definition.
-# Expected parameters are:
-# {1} ... image in "templete" folder which you want to check
-Procedure image_check {
-
-    # Wait for 3 mins (5sec * 36 = 180sec)
-    for (image_cnt=1; {image_cnt}<=36; image_cnt={image_cnt}+1) {
-        Compareto {1} passrate="70" method="search2"
-        if ({_EXIT_CODE} == 0) {
-            break
-        } else {
-            Wait "5s"
-            if ({image_cnt} == 36) {
-                # Error happens
-                break
-            }
         }
     }
 }

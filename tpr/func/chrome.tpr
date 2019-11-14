@@ -1,32 +1,32 @@
 # Procedure definition.
 Procedure chrome_open {
-     Press "Windows+R"
-     Paste "Chrome"
-     Press "Enter" wait="3s"
-     Press "Windows+Up" wait="1s"
+    Press "Windows+R"
+    Paste "Chrome"
+    Press "Enter" wait="3s"
+    Press "Windows+Up" wait="1s"
 }
 
 
 # Procedure definition.
-# If you use this function, Chrome should be opened formerly on main source code.
+# Expected parameters are:
 # {1} ... String URL which needs to be replaced
 # {2} ... String keyword which wants to replace
 Procedure chrome_search {
 
-    # Replace URL for containing keyword
+    # Replace URL to make it contain keyword
     if ({1} contains "(keyword)") {
-        String replace {1} string="(keyword)" replacement={2}
+        String replace "{1}" string="(keyword)" replacement="{2}"
         Var _SERVER_CLIPBOARD_CONTENT={_STRING}
     } else {
         Var _SERVER_CLIPBOARD_CONTENT={1}
     }
 
-    # searching next keyword
+    # Search next keyword
     if ({search_cnt} > 1) {
         Press "F6"
     }
     Press "Ctrl+V" wait="1s"
-    Press "Enter" wait={load_waittime}
+    Press "Enter" wait="{load_waittime}"
 
     Eval search_cnt={search_cnt}+1
 }
@@ -40,10 +40,10 @@ Procedure chrome_savepage {
 
     Press "Ctrl+S" wait="1s"
     Press "Alt+N"
-    
+
     Var _SERVER_CLIPBOARD_CONTENT={1}
     Press "Ctrl+V" wait="1s"
-    Press "Alt+S" wait={save_waittime}
+    Press "Alt+S" wait="{save_waittime}"
 }
 
 

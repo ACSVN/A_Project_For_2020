@@ -5,6 +5,7 @@ Include "savepage\CtrlS.tpr"
 # Procedure definition.
 Procedure main_savepage {
 
+    # This branch depends on the number of {save_method}
     if ({save_method} == 1) {
         savepage_HTTrack
     } else if ({save_method} == 2) {

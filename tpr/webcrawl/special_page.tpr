@@ -6,9 +6,9 @@ Include "..\func\image.tpr"
 Procedure special_gigazine_search {
     Press "Ctrl+End"
     image_click "search\{web_name}" "10" "1s"
-    Paste {keyword_name}
-    
-    # キーワード検索後のページ読込待機時間だけは別途こちらで。
+    Paste "{keyword_name}"
+
+    # Gigazineキーワード検索後のページ読込待機時間だけは別途こちらで。
     Press "Enter" wait="15s"
 }
 
@@ -19,7 +19,7 @@ Procedure special_engadget_firstimage {
     for (image_cnt=1; {image_cnt}<=10; image_cnt={image_cnt}+1) {
         Compareto "next_page\engadget" passrate="90" method="search2"
         if ({_EXIT_CODE} == 0) {
-            Click "image" passrate="90" template="next_page\engadget" wait={load_waittime}
+            Click "image" passrate="90" template="next_page\engadget" wait="{load_waittime}"
             break
         } else {
             Press "Space" wait="1s"
@@ -36,12 +36,12 @@ Procedure special_nextpage {
     Press "F6"
     Press "Ctrl+C"
     Var url_for_nextpage={_SERVER_CLIPBOARD_CONTENT_TEXT}
-    
-    String replace {url_for_nextpage} string={1} replacement={2}
+
+    String replace "{url_for_nextpage}" string="{1}" replacement="{2}"
     Var _SERVER_CLIPBOARD_CONTENT={_STRING}
-    
+
     Press "Ctrl+V"
-    Press "Enter" wait={load_waittime}
+    Press "Enter" wait="{load_waittime}"
 }
 
 
@@ -51,7 +51,7 @@ Procedure special_nextpage {
 # {2} ... click_sort from "input.xlsx"
 Procedure special_sort {
     for (sort_cnt=1; {sort_cnt}<={2}; sort_cnt={sort_cnt}+1) {
-        image_click "sort\{1}" "30" "1s"
-        Wait {load_waittime}
+        image_click "sort\{1}" "10" "1s"
+        Wait "3s"
     }
 }
