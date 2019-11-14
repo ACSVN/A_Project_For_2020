@@ -7,7 +7,9 @@ Procedure special_gigazine_search {
     Press "Ctrl+End"
     image_click "search\{web_name}" "10" "1s"
     Paste {keyword_name}
-    Press "Enter" wait="1s"
+    
+    # キーワード検索後のページ読込待機時間だけは別途こちらで。
+    Press "Enter" wait="15s"
 }
 
 
