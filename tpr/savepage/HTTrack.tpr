@@ -1,0 +1,39 @@
+# Procedure definition.
+Procedure savepage_HTTrack {
+
+    # Variable in savepage_HTTrack
+    Var url_for_httrack=""
+
+    # Open HTTrack
+    Press "Windows+R"
+    Paste "C:\Program Files (x86)\WinHTTrack\WinHTTrack.exe"
+    Press "Enter" wait="3s"
+
+    # Set directory to save HTML file
+    Press "Alt+N"
+    Paste "{web_name}"
+    Press "Tab" count="2"
+    Paste "{_PROJECT_DIR}\data_page_source\HTML\{web_name}"
+    Press "Enter"
+
+    Excel "open" file="..\data_page_source\HTML\{web_name}\{web_name}.xlsx" id="{web_name}_saveHTT"
+
+    # Paste URL to get HTML data (20item * 18keyword = 360item)
+    for (save_cnt=2; {save_cnt}<362; save_cnt={save_cnt}+1) {
+        Excel "select" row="{save_cnt}" column="5" id="{1}_saveHTT"
+        Var url_for_httrack={_EXCEL_CELL_VALUE}
+
+        if ({url_for_httrack} contains "http") {
+            Paste "{url_for_httrack}"
+            Press "Enter"
+        }
+    }
+
+    Excel "close" save="false" id="{web_name}_saveHTT"
+
+    # Run HTTrack
+    Press "Tab" count="7"
+    Press "Enter" count="2"
+    Press "Alt+Tab"
+    Wait "3s"
+}

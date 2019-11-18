@@ -1,0 +1,52 @@
+Include "special_page.tpr"
+Include "..\func\chrome.tpr"
+
+
+# Procedure definition.
+# If you use this function, keyword page should be opened formerly in main source code.
+Procedure webcrawl_ANA2 {
+
+    # Delete html files which has already existed
+    Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp1.html"
+    Exec "cmd.exe /C del /Q {_PROJECT_DIR}\data_tmp_html\temp2.html"
+    Exec "cmd.exe /C del /S /Q {_PROJECT_DIR}\data_tmp_html\temp1_files"
+    Exec "cmd.exe /C del /S /Q {_PROJECT_DIR}\data_tmp_html\temp2_files"
+    Exec "cmd.exe /C rmdir {_PROJECT_DIR}\data_tmp_html\temp1_files"
+    Exec "cmd.exe /C rmdir {_PROJECT_DIR}\data_tmp_html\temp2_files"
+
+    # If website needs to sort by date (+ wait {load_waittime})
+    if ({click_sort} > 0) {
+        special_sort "{web_name}" "{click_sort}"
+    }
+
+    # Engadget: Click image first (+ wait {load_waittime})
+    if ({web_name} matches "engadget") {
+        special_engadget_firstimage
+    }
+
+    # Global Variable (to use image_nextpage)
+    Var image_exist=1
+
+    for (page_cnt=1; {page_cnt}<={page_num}; page_cnt={page_cnt}+1) {
+
+        # Download html files to get content (ANA2 website cannot get data from Chrome directly)
+        chrome_savepage "{_PROJECT_DIR}\data_tmp_html\temp{page_cnt}.html"
+
+        # Go to Next Page (each method has wait {load_waittime})
+        if ({page_cnt} < {page_num}) {
+            if ({web_name} matches "itmedia") {
+                special_nextpage "start=0" "start=10"
+            } else if ({web_name} matches "techcrunch") {
+                special_nextpage "stp=1" "stp=2"
+            } else {
+                image_nextpage "{web_name}"
+            }
+        }
+
+        # When HCR could not click nextpage image (because of the loss of items), go to next keyword
+        if ({image_exist} == 0) {
+            break
+        }
+    }
+//    Run "..\src\GetHref.java"
+}

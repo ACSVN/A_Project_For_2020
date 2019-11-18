@@ -1,24 +1,28 @@
-# This source code was created by Akira Nose.
-# Created on October 23, 2019
-
-
 Include "main_webcrawl.tpr"
 Include "main_savepage.tpr"
 Include "func\input.tpr"
 
+# Variable in "input_console"
+Var start_web_row=0
+Var finish_web_row=0
+Var start_key_row=0
+Var finish_key_row=0
 
-# Global Variable in "input_url(read_input.tpr)"
+# Variable in "input_website"
 Var web_name=""
 Var crawl_switch=0
 Var save_switch=0
 Var crawl_method=0
 Var save_method=0
 Var page_num=0
+Var load_waittime=""
+Var save_waittime=""
 Var URL=""
 Var class_href=""
 Var class_title=""
 Var class_postdate=""
 Var class_source=""
+Var class_content=""
 Var click_search=""
 Var class_next_page=""
 Var domain=""
@@ -28,20 +32,24 @@ Var class_tr_dl=""
 Var click_sort=""
 Var class_gsc_cursor_page=""
 
-# Global Variable in "input_keyword(read_input.tpr)"
+# Variable in "input_keyword"
 Var keyword_name=""
+
 
 
 Excel "open" file="..\input.xlsx" id="input"
 
+# Input number where to start reading in "website" & "keyword" sheet
+input_console
+
 
 # ========== Creating Excel File ========== #
 
-# Check whether each website should save Excel file or not
-for (web_cnt=2; {web_cnt}<=25, web_cnt={web_cnt}+1) {
-    input_url "{web_cnt}"
+# Check whether or not each website should save Excel file
+for (web_cnt={start_web_row}; {web_cnt}<={finish_web_row}; web_cnt={web_cnt}+1) {
+    input_website "{web_cnt}"
 
-    # If crawl_switch > 0, go to "main_openpage.tpr"
+    # If crawl_switch > 0, go to "main_webcrawl.tpr"
     if ({crawl_switch} > 0) {
         main_webcrawl
         Log "Searching On Website Is Finished (web_name={web_name})"
@@ -53,17 +61,17 @@ for (web_cnt=2; {web_cnt}<=25, web_cnt={web_cnt}+1) {
 
 # ========== Saving Pagesource ========== #
 
-# Check whether each website should save page source or not
-for (web_cnt=2, {web_cnt}<=25, web_cnt={web_cnt}+1) {
-    input_url "{web_cnt}"
+# Check whether or not each website should save page source
+for (web_cnt={start_web_row}; {web_cnt}<={finish_web_row}; web_cnt={web_cnt}+1) {
+    input_website "{web_cnt}"
 
     # if save_switch > 0, go to "main_savepage.tpr"
     if ({save_switch} > 0) {
-        #main_savepage
+        main_savepage
         Log "Saving Page Source Is Finished (web_name={web_name})"
     } else {
         Log "Saving Page Source Is Skipped (save_switch=0, web_name={web_name})"
-   }
+    }
 }
 
-Excel "close"
+Excel "close" save="false" id="input"
