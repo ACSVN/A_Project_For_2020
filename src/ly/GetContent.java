@@ -47,7 +47,7 @@ public class GetContent extends DefaultJavaTestScript  {
         ArrayList<String> lststorage = new ArrayList<>();
         try {
             for(String k : lstKey){
-              String[][] tests = AddixExcel.readExcelFile(excelFile, k, true, col);
+              String[][] tests = this.readExcelFile(excelFile, k, true, col);
               for(int i = 0 ; i < tests.length ; i++){
                   for(int j = 0 ; j < tests[i].length ; j++){
                       lststorage.add(tests[i][j]);
@@ -60,11 +60,68 @@ public class GetContent extends DefaultJavaTestScript  {
         }
         return lststorage;
     }
+	public  String[][] readExcelFile(String fileName, String sheetName, 
+            boolean isReadAll, int[] columnArray) throws Exception{
+        try{
+            ArrayList<String> arrs = new ArrayList<String>();
+            String strPathInFile = URLDecoder.decode(fileName, "UTF-8");
+            FileInputStream fileInputStream = new FileInputStream(strPathInFile);
+            String [][] arrData = null;
+            // Create a DataFormatter to format and get each cell's value as String
+            DataFormatter dataFormatter = new DataFormatter();
+            
+            XSSFWorkbook myWorkBook = new XSSFWorkbook(fileInputStream);
+            XSSFSheet mySheet = myWorkBook.getSheet(sheetName);
+            Iterator<Row> rowIterator = mySheet.iterator();
+            int colDataSize = 0;
+            if(isReadAll){//read all data from excel file
+                colDataSize = (rowIterator.next()).getLastCellNum();
+            }else{//read array column data from excel file
+                colDataSize = columnArray.length;
+            }            
+            int rowDataSize = mySheet.getLastRowNum();
+            arrData = new String[rowDataSize][colDataSize];
+            
+            //Assign data to array            
+            int i = 0;
+            while(rowIterator.hasNext()){
+                //Skip first row (title row)
+                Row row = rowIterator.next();
+                if(row.getRowNum() > 0){                    
+                    Iterator<Cell> cellIterator = row.cellIterator();
+                    int j = 0;
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+                        String cellValue = "";
+                        if(isReadAll){
+                            cellValue = dataFormatter.formatCellValue(cell);     
+                            arrData[i][j] = cellValue;
+                            j++;
+                        }else{
+                            for(int iter = 0; iter < columnArray.length; iter++){
+                                if(cell.getColumnIndex() == (columnArray[iter]-1)){
+                                    cellValue = dataFormatter.formatCellValue(cell); 
+                                    arrData[i][j] = cellValue;
+                                    j++;
+                                }
+                            }                            
+                        }
+                    }
+                    i++;
+                }
+            }
+            myWorkBook.close();
+            fileInputStream.close();
+            return arrData;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
 	public ArrayList<String> loadDataFromExcelFile(String excelFile, String sheetName, boolean bool, int[] columns , int colData){
         
         ArrayList<String> lstData = new ArrayList<>();
         try {
-            String[][] arrDatas = AddixExcel.readExcelFile(excelFile, sheetName, bool, columns);
+            String[][] arrDatas = this.readExcelFile(excelFile, sheetName, bool, columns);
             for(int i = 0 ; i < arrDatas.length ; i++){
                 lstData.add(arrDatas[i][colData].toString());
             }
@@ -105,7 +162,7 @@ public class GetContent extends DefaultJavaTestScript  {
         int[] col = {0};
         ArrayList<String> urlFilters = new ArrayList<>();
         try {
-            String[][] tests = AddixExcel.readExcelFile(exFile, "website", true, col);
+            String[][] tests = this.readExcelFile(exFile, "website", true, col);
             for(int i = 0 ; i < tests.length ; i++){
                     if((tests[i][3].toString()).equals("1") == true){
                        urlFilters.add(tests[i][coltype]); 
